@@ -41,12 +41,12 @@ public class MailReqHandler implements ReqHandler {
         session = Session.getInstance(conf);
         String from = conf.getProperty(MailerService.MAIL_FROM);
         fromAddress = new InternetAddress(from == null ? user : from);
-        pool = createPool();
+        pool = createPool(session);
     }
 
-    private ObjectPool<Transport> createPool() {
+    private ObjectPool<Transport> createPool(Session session) {
         PoolConfig config = new PoolConfig();
-        config.setPartitionSize(5);
+        config.setPartitionSize(8);
         config.setMaxSize(10);
         config.setMinSize(5);
         config.setMaxIdleMilliseconds(60 * 1000 * 5);
@@ -97,7 +97,7 @@ public class MailReqHandler implements ReqHandler {
             }
             String content = emailTemp.render().toString();
             req.async();
-            Jobs.execute(new MailSender(session, user, password, fromAddress, to, subject, content, template, req));
+            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, subject, content, template, req));
         } catch (RenderingException e) {
             return Response.bad(req, "missing template field");
         } catch (TemplateNotFoundException e) {

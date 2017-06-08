@@ -1,6 +1,8 @@
 package vn.com.vndirect.mail;
 
 import org.rapidoid.http.Req;
+import vn.com.vndirect.pool.ObjectPool;
+import vn.com.vndirect.pool.Poolable;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -23,6 +25,7 @@ import java.nio.file.Path;
  */
 public class MailSender implements Runnable {
     private Session session;
+    private ObjectPool<Transport> pool;
     private String user;
     private String password;
     private Address fromAddress;
@@ -32,8 +35,9 @@ public class MailSender implements Runnable {
     private String imgPath;
     private Req req;
 
-    public MailSender(Session session, String user, String password, Address fromAddress, String toAddress, String subject, String htmlContent, String imgPath, Req req) {
+    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String subject, String htmlContent, String imgPath, Req req) {
         this.session = session;
+        this.pool = pool;
         this.user = user;
         this.password = password;
         this.fromAddress = fromAddress;
@@ -76,39 +80,17 @@ public class MailSender implements Runnable {
         return message;
     }
 
-    private final static ThreadLocal<Transport> transportLocal = new ThreadLocal<>();
-
     void send(Message message) throws MessagingException {
-        //TODO improve here
-//        Transport.send(message);
         message.saveChanges();
-        Transport transport = transportLocal.get();
-        if (transport == null) {
-            transport = session.getTransport("smtp");
-            transportLocal.set(transport);
-            transport.addConnectionListener(new ConnectionListener() {
-                private long id = Thread.currentThread().getId();
-
-                @Override
-                public void opened(ConnectionEvent e) {
-                    System.out.println("opened[" + id + "] " + e);
-                }
-
-                @Override
-                public void disconnected(ConnectionEvent e) {
-                    System.out.println("disconnected[" + id + "] " + e);
-
-                }
-
-                @Override
-                public void closed(ConnectionEvent e) {
-                    System.out.println("closed[" + id + "] " + e);
-
-                }
-            });
+        Poolable<Transport> obj = pool.borrowObject();
+        Transport transport = obj != null ? obj.getObject() : session.getTransport("smtp");
+        if (!transport.isConnected()) {
             transport.connect(user, password);
         }
         transport.sendMessage(message, message.getAllRecipients());
+        if (obj != null) {
+            pool.returnObject(obj);
+        }
     }
 
     @Override

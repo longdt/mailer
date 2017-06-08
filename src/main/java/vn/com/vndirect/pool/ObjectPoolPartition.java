@@ -1,7 +1,7 @@
 package vn.com.vndirect.pool;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -12,7 +12,7 @@ public class ObjectPoolPartition<T> {
     private final ObjectPool<T> pool;
     private final PoolConfig config;
     private final int partition;
-    private final BlockingQueue<Poolable<T>> objectQueue;
+    private final BlockingDeque<Poolable<T>> objectQueue;
     private final ObjectFactory<T> objectFactory;
     private int totalCount;
 
@@ -21,14 +21,14 @@ public class ObjectPoolPartition<T> {
         this.config = config;
         this.objectFactory = objectFactory;
         this.partition = partition;
-        this.objectQueue = new ArrayBlockingQueue<>(config.getMaxSize());
+        this.objectQueue = new LinkedBlockingDeque<>(config.getMaxSize());
         for (int i = 0; i < config.getMinSize(); i++) {
             objectQueue.put(new Poolable<>(objectFactory.create(), pool, partition));
         }
         totalCount = config.getMinSize();
     }
 
-    public BlockingQueue<Poolable<T>> getObjectQueue() {
+    public BlockingDeque<Poolable<T>> getObjectQueue() {
         return objectQueue;
     }
 
