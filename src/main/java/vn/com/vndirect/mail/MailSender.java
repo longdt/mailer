@@ -1,6 +1,8 @@
 package vn.com.vndirect.mail;
 
 import org.rapidoid.http.Req;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectPool;
 import vn.com.vndirect.pool.Poolable;
 import vn.com.vndirect.util.Response;
@@ -22,6 +24,7 @@ import java.nio.file.Path;
  * Created by naruto on 6/6/17.
  */
 public class MailSender implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(MailSender.class);
     private Session session;
     private ObjectPool<Transport> pool;
     private String user;
@@ -111,7 +114,7 @@ public class MailSender implements Runnable {
             send(message);
             Response.ok(req);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("can't send mail '{}' to {}", subject, toAddress, e);
             Response.err(req, e);
         } finally {
             req.done();

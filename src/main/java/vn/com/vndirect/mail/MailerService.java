@@ -39,7 +39,6 @@ public class MailerService {
         String host = props.getProperty(MAILER_HOST, "0.0.0.0");
         int port = ConfigUtils.getInt(props, MAILER_PORT, 9999);
         On.address(host).port(port);
-        On.get("/").plain(mailReqHandler);
         On.post("/").plain(mailReqHandler);
     }
 }

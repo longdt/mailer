@@ -20,7 +20,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -28,7 +27,7 @@ import java.util.Properties;
  * Created by naruto on 6/7/17.
  */
 public class MailReqHandler implements ReqHandler {
-    private static final Logger logger = LoggerFactory.getLogger(MailerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MailReqHandler.class);
     static final Path templatesDir = Paths.get("templates");
     static final String templateFile = "temp.rocker.html";
     private Session session;
@@ -72,7 +71,7 @@ public class MailReqHandler implements ReqHandler {
                 try {
                     transport.close();
                 } catch (MessagingException e) {
-                    logger.error("can't close transport object: " + transport, e);
+                    logger.error("can't close transport object: {}", transport, e);
                 }
             }
 
@@ -86,25 +85,28 @@ public class MailReqHandler implements ReqHandler {
 
     @Override
     public Object execute(Req req) throws Exception {
-        Map<String, Object> data = new HashMap<>(req.data());
-        String to = (String) data.remove("to");
+        Map<String, Object> data = req.posted();
+        String to = (String) data.get("to");
         if (to == null) {
             return Response.bad(req, "missing field to");
         }
-        String subject = (String) data.remove("subject");
+        String subject = (String) data.get("subject");
         if (subject == null) {
             return Response.bad(req, "missing field subject");
         }
-        String template = (String) data.remove("template");
+        String template = (String) data.get("template");
         if (template == null) {
             return Response.bad(req, "missing field template");
         }
-        String cc = (String) data.remove("cc");
-        String bc = (String) data.remove("bc");
+        String cc = (String) data.get("cc");
+        String bc = (String) data.get("bc");
+        Map<String, Object> tempFields = (Map<String, Object>) data.get("tempfields");
         try {
             BindableRockerModel emailTemp = Rocker.template(template + "/" + templateFile);
-            for (Map.Entry<String, Object> entry : data.entrySet()) {
-                emailTemp.bind(entry.getKey(), entry.getValue());
+            if (tempFields != null) {
+                for (Map.Entry<String, Object> entry : tempFields.entrySet()) {
+                    emailTemp.bind(entry.getKey(), entry.getValue());
+                }
             }
             String content = emailTemp.render().toString();
             req.async();
