@@ -5,21 +5,12 @@ package vn.com.vndirect.pool;
  */
 public class PoolConfig {
 
-    private int maxWaitMilliseconds = 5000; // when pool is full, wait at most 5 seconds, then throw an exception
     private int maxIdleMilliseconds = 300000; // objects idle for 5 minutes will be destroyed to shrink the pool size
     private int minSize = 5;
     private int maxSize = 20;
     private int partitionSize = 4;
     private int scavengeIntervalMilliseconds = 1000 * 60 * 2;
     private double scavengeRatio = 0.5; // to avoid to clean up all connections in the pool at the same time
-
-    public int getMaxWaitMilliseconds() {
-        return maxWaitMilliseconds;
-    }
-
-    public void setMaxWaitMilliseconds(int maxWaitMilliseconds) {
-        this.maxWaitMilliseconds = maxWaitMilliseconds;
-    }
 
     public int getMinSize() {
         return minSize;

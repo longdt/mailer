@@ -1,4 +1,4 @@
-package vn.com.vndirect.mail;
+package vn.com.vndirect.util;
 
 import org.rapidoid.http.Req;
 import org.rapidoid.http.Resp;

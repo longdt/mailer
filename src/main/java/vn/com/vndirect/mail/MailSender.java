@@ -3,14 +3,12 @@ package vn.com.vndirect.mail;
 import org.rapidoid.http.Req;
 import vn.com.vndirect.pool.ObjectPool;
 import vn.com.vndirect.pool.Poolable;
+import vn.com.vndirect.util.Response;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.event.ConnectionAdapter;
-import javax.mail.event.ConnectionEvent;
-import javax.mail.event.ConnectionListener;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;

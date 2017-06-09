@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectFactory;
 import vn.com.vndirect.pool.ObjectPool;
 import vn.com.vndirect.pool.PoolConfig;
+import vn.com.vndirect.util.ConfigUtils;
+import vn.com.vndirect.util.Response;
 
 import javax.mail.*;
 import javax.mail.internet.AddressException;
@@ -41,15 +43,18 @@ public class MailReqHandler implements ReqHandler {
         session = Session.getInstance(conf);
         String from = conf.getProperty(MailerService.MAIL_FROM);
         fromAddress = new InternetAddress(from == null ? user : from);
-        pool = createPool(session);
+        pool = createPool(conf, session);
     }
 
-    private ObjectPool<Transport> createPool(Session session) {
+    private ObjectPool<Transport> createPool(Properties conf, Session session) {
         PoolConfig config = new PoolConfig();
-        config.setPartitionSize(8);
-        config.setMaxSize(10);
-        config.setMinSize(5);
-        config.setMaxIdleMilliseconds(60 * 1000 * 5);
+        int partition = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_PARTITION, 8);
+        int maxSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MAXSIZE, 10);
+        int minSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MINSIZE, 5);
+        config.setPartitionSize(partition);
+        config.setMaxSize(maxSize);
+        config.setMinSize(minSize);
+        config.setScavengeIntervalMilliseconds(0);
         ObjectPool<Transport> pool = new ObjectPool<>(config, new ObjectFactory<Transport>() {
             @Override
             public Transport create() {
@@ -64,7 +69,11 @@ public class MailReqHandler implements ReqHandler {
 
             @Override
             public void destroy(Transport transport) {
-
+                try {
+                    transport.close();
+                } catch (MessagingException e) {
+                    logger.error("can't close transport object: " + transport, e);
+                }
             }
 
             @Override

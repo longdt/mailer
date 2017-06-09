@@ -6,10 +6,10 @@ import java.util.concurrent.TimeUnit;
  * @author Daniel
  */
 public class ObjectPool<T> {
-
     protected final PoolConfig config;
     protected final ObjectFactory<T> factory;
     protected final ObjectPoolPartition<T>[] partitions;
+    protected final boolean setlat;
     private Scavenger scavenger;
     private volatile boolean shuttingDown;
 
@@ -19,11 +19,12 @@ public class ObjectPool<T> {
         this.partitions = new ObjectPoolPartition[config.getPartitionSize()];
         try {
             for (int i = 0; i < config.getPartitionSize(); i++) {
-                partitions[i] = new ObjectPoolPartition<T>(this, i, config, objectFactory);
+                partitions[i] = new ObjectPoolPartition<>(this, i, config, objectFactory);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        setlat = config.getScavengeIntervalMilliseconds() > 0;
         if (config.getScavengeIntervalMilliseconds() > 0) {
             this.scavenger = new Scavenger();
             this.scavenger.start();
@@ -35,16 +36,13 @@ public class ObjectPool<T> {
     }
 
     public Poolable<T> borrowObject(long milisecondWait) {
-        for (int i = 0; i < 3; i++) { // try at most three times
-            Poolable<T> result = getObject(milisecondWait);
-            if (result == null) {
-                return null;
-            } else if (factory.validate(result.getObject())) {
-                return result;
-            } else {
-                this.partitions[result.getPartition()].decreaseObject(result);
-            }
+        Poolable<T> result = getObject(milisecondWait);
+        if (result == null) {
+            return null;
+        } else if (factory.validate(result.getObject())) {
+            return result;
         }
+        this.partitions[result.getPartition()].decreaseObject(result);
         return null;
     }
 
@@ -68,7 +66,7 @@ public class ObjectPool<T> {
                 throw new RuntimeException(e); // will never happen
             }
         }
-        if (freeObject != null) {
+        if (setlat && freeObject != null) {
             freeObject.setLastAccessTs(System.currentTimeMillis());
         }
         return freeObject;
