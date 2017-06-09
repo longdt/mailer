@@ -99,6 +99,8 @@ public class MailReqHandler implements ReqHandler {
         if (template == null) {
             return Response.bad(req, "missing field template");
         }
+        String cc = (String) data.remove("cc");
+        String bc = (String) data.remove("bc");
         try {
             BindableRockerModel emailTemp = Rocker.template(template + "/" + templateFile);
             for (Map.Entry<String, Object> entry : data.entrySet()) {
@@ -106,7 +108,7 @@ public class MailReqHandler implements ReqHandler {
             }
             String content = emailTemp.render().toString();
             req.async();
-            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, subject, content, template, req));
+            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template, req));
         } catch (RenderingException e) {
             return Response.bad(req, "missing template field");
         } catch (TemplateNotFoundException e) {

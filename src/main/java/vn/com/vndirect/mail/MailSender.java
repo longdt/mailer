@@ -28,18 +28,22 @@ public class MailSender implements Runnable {
     private String password;
     private Address fromAddress;
     private String toAddress;
+    private String ccAddress;
+    private String bcAddress;
     private String subject;
     private String htmlContent;
     private String imgPath;
     private Req req;
 
-    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String subject, String htmlContent, String imgPath, Req req) {
+    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String ccAddress, String bcAddress, String subject, String htmlContent, String imgPath, Req req) {
         this.session = session;
         this.pool = pool;
         this.user = user;
         this.password = password;
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
+        this.ccAddress = ccAddress;
+        this.bcAddress = bcAddress;
         this.subject = subject;
         this.htmlContent = htmlContent;
         this.imgPath = imgPath;
@@ -51,6 +55,15 @@ public class MailSender implements Runnable {
         message.setFrom(fromAddress);
         message.setRecipients(javax.mail.Message.RecipientType.TO,
                 InternetAddress.parse(toAddress));
+        if (ccAddress != null) {
+            message.setRecipients(javax.mail.Message.RecipientType.CC,
+                    InternetAddress.parse(ccAddress));
+        }
+        if (bcAddress != null) {
+            message.setRecipients(javax.mail.Message.RecipientType.BCC,
+                    InternetAddress.parse(bcAddress));
+        }
+
         message.setSubject(subject);
 
         MimeMultipart content = new MimeMultipart("related");
