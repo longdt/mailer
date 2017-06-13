@@ -96,14 +96,12 @@ public class MailSender implements Runnable {
 
     void send(Message message) throws MessagingException {
         message.saveChanges();
-        Poolable<Transport> obj = pool.borrowObject();
-        Transport transport = obj != null ? obj.getObject() : session.getTransport("smtp");
-        if (!transport.isConnected()) {
-            transport.connect(user, password);
-        }
-        transport.sendMessage(message, message.getAllRecipients());
-        if (obj != null) {
-            pool.returnObject(obj);
+        try (Poolable<Transport> obj = pool.borrowObject()) {
+            Transport transport = obj != null ? obj.getObject() : session.getTransport("smtp");
+            if (!transport.isConnected()) {
+                transport.connect(user, password);
+            }
+            transport.sendMessage(message, message.getAllRecipients());
         }
     }
 
