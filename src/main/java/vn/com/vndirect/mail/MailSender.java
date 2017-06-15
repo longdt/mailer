@@ -11,10 +11,7 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -111,6 +108,8 @@ public class MailSender implements Runnable {
             Message message = buildMessage();
             send(message);
             Response.ok(req);
+        } catch (AddressException e) {
+            Response.bad(req, "invalid address");
         } catch (Exception e) {
             logger.error("can't send mail '{}' to {}", subject, toAddress, e);
             Response.err(req, e);
