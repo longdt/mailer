@@ -1,9 +1,6 @@
 package vn.com.vndirect.mail;
 
-import com.fizzed.rocker.BindableRockerModel;
-import com.fizzed.rocker.RenderingException;
-import com.fizzed.rocker.Rocker;
-import com.fizzed.rocker.TemplateNotFoundException;
+import com.fizzed.rocker.*;
 import org.rapidoid.http.Req;
 import org.rapidoid.http.ReqHandler;
 import org.rapidoid.job.Jobs;
@@ -115,7 +112,9 @@ public class MailReqHandler implements ReqHandler {
             return Response.bad(req, "missing template field");
         } catch (TemplateNotFoundException e) {
             logger.error("can't build email content", e);
-            return Response.bad(req, "invalid template");
+            return Response.bad(req, "invalid template: " + template);
+        } catch(TemplateBindException e) {
+            return Response.bad(req, e.getMessage());
         } catch (Exception e) {
             logger.error("template error", e);
             return Response.err(req, e);
