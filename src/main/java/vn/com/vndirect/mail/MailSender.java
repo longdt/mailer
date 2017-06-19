@@ -108,6 +108,7 @@ public class MailSender implements Runnable {
             Message message = buildMessage();
             send(message);
             Response.ok(req);
+            logger.info("send success '{}' to {}", subject, toAddress);
         } catch (AddressException e) {
             Response.bad(req, "invalid address");
         } catch (Exception e) {
