@@ -3,7 +3,7 @@
   path: log
     #danh sách file log cần moninor
     files:
-        - mailer-error.log
+        - mailer-error.
     #danh sách message pattern để filter log noti tới team phát triển (nếu có)
     patterns:
         - *error*
@@ -14,4 +14,4 @@
     #danh sách email nhận noti
     emails:
         - long.dinhtrong2@vndirect.com.vn
-        - @vndirect.cọm.vn
+        - hung.nguyen@vndirect.cọm.vn
