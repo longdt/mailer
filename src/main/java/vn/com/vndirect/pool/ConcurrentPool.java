@@ -35,7 +35,7 @@ public class ConcurrentPool<T> implements ObjectPool<T> {
             int checkSize = Math.min(size, config.getMinSize());
             int maxIdleMs = config.getMaxIdleMilliseconds();
             Poolable<T> obj;
-            while (checkSize > 0 && (obj = objectDeque.pollLast()) != null) {
+            while (!shuttingDown && checkSize > 0 && (obj = objectDeque.pollLast()) != null) {
                 if (obj.getLastAccessTs() + maxIdleMs > System.currentTimeMillis()) {
                     break;
                 } else if (factory.refresh(obj.getObject())) {
@@ -69,8 +69,18 @@ public class ConcurrentPool<T> implements ObjectPool<T> {
     }
 
     @Override
-    public int shutdown() throws InterruptedException {
+    public synchronized int shutdown() throws InterruptedException {
+        if (shuttingDown) {
+            return 0;
+        }
+        shuttingDown = true;
         scheduler.shutdown();
-        return 0;
+        int counter = 0;
+        Poolable<T> obj;
+        while ((obj = objectDeque.pollLast()) != null) {
+            factory.destroy(obj.getObject());
+            ++counter;
+        }
+        return counter;
     }
 }

@@ -3,8 +3,15 @@ package vn.com.vndirect.mail;
 import com.fizzed.rocker.runtime.RockerRuntime;
 import org.rapidoid.http.ReqHandler;
 import org.rapidoid.setup.On;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import vn.com.vndirect.pool.*;
 import vn.com.vndirect.util.ConfigUtils;
 
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,6 +22,7 @@ import java.util.Properties;
  * Created by naruto on 6/5/17.
  */
 public class MailerService {
+    private static final Logger logger = LoggerFactory.getLogger(MailReqHandler.class);
     static final String MAIL_USER = "mail.user";
     static final String MAIL_PWD = "mail.pwd";
     static final String MAIL_FROM = "mail.from";
@@ -32,12 +40,82 @@ public class MailerService {
         return props;
     }
 
+
+    public static ObjectPool<Transport> createPool(Properties conf, Session session) {
+        String user = conf.getProperty(MailerService.MAIL_USER);
+        String password = conf.getProperty(MailerService.MAIL_PWD);
+        PoolConfig config = new PoolConfig();
+        int partition = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_PARTITION, 8);
+        int maxSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MAXSIZE, 10);
+        int minSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MINSIZE, 5);
+        config.setPartitionSize(partition);
+        config.setMaxSize(maxSize);
+        config.setMinSize(minSize);
+        ObjectPool<Transport> pool = createPool(config, new ObjectFactory<Transport>() {
+            @Override
+            public Transport create() {
+                try {
+                    return session.getTransport("smtp");
+                } catch (NoSuchProviderException e) {
+                    logger.error("can't create a connected Transport object", e);
+                    return null;
+                }
+            }
+
+            @Override
+            public void destroy(Transport transport) {
+                try {
+                    transport.close();
+                } catch (MessagingException e) {
+                    logger.error("can't close transport object: {}", transport, e);
+                }
+            }
+
+            @Override
+            public boolean validate(Transport transport) {
+                return true;
+            }
+
+            @Override
+            public boolean refresh(Transport transport) {
+                try {
+                    if (!transport.isConnected()) {
+                        transport.connect(user, password);
+                    }
+                    return true;
+                } catch (MessagingException e) {
+                    return false;
+                }
+            }
+        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                pool.shutdown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }));
+        return pool;
+    }
+
+    public static ObjectPool<Transport> createPool(PoolConfig config, ObjectFactory factory) {
+        if (config.getPartitionSize() <= 1) {
+            return new ConcurrentPool<Transport>(config, factory);
+        } else {
+            config.setScavengeIntervalMilliseconds(0);
+            return new PartitionPool<Transport>(config, factory);
+        }
+    }
+
+
     public static void main(String[] args) throws IOException, AddressException {
         RockerRuntime.getInstance().setReloading(true);
-        Properties props = loadConf();
-        ReqHandler mailReqHandler = new MailReqHandler(props);
-        String host = props.getProperty(MAILER_HOST, "0.0.0.0");
-        int port = ConfigUtils.getInt(props, MAILER_PORT, 9999);
+        Properties conf = loadConf();
+        Session session = Session.getInstance(conf);
+        ObjectPool<Transport> pool = createPool(conf, session);
+        ReqHandler mailReqHandler = new MailReqHandler(conf, session, pool);
+        String host = conf.getProperty(MAILER_HOST, "0.0.0.0");
+        int port = ConfigUtils.getInt(conf, MAILER_PORT, 9999);
         On.address(host).port(port);
         On.post("/").json(mailReqHandler);
     }

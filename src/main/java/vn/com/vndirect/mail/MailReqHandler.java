@@ -34,65 +34,13 @@ public class MailReqHandler implements ReqHandler {
     private Address fromAddress;
     private ObjectPool<Transport> pool;
 
-    public MailReqHandler(Properties conf) throws AddressException {
+    public MailReqHandler(Properties conf, Session session, ObjectPool<Transport> pool) throws AddressException {
         user = conf.getProperty(MailerService.MAIL_USER);
         password = conf.getProperty(MailerService.MAIL_PWD);
-        session = Session.getInstance(conf);
+        this.session = session;
         String from = conf.getProperty(MailerService.MAIL_FROM);
         fromAddress = new InternetAddress(from == null ? user : from);
-        pool = createPool(conf, session);
-    }
-
-    private ObjectPool<Transport> createPool(Properties conf, Session session) {
-        PoolConfig config = new PoolConfig();
-        int partition = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_PARTITION, 8);
-        int maxSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MAXSIZE, 10);
-        int minSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MINSIZE, 5);
-        config.setPartitionSize(partition);
-        config.setMaxSize(maxSize);
-        config.setMinSize(minSize);
-        if (partition > 0) {
-            config.setScavengeIntervalMilliseconds(0);
-        }
-        ObjectPool<Transport> pool = new PartitionPool<>(config, new ObjectFactory<Transport>() {
-            @Override
-            public Transport create() {
-                try {
-                    return session.getTransport("smtp");
-                } catch (NoSuchProviderException e) {
-                    logger.error("can't create a connected Transport object", e);
-                    return null;
-                }
-            }
-
-            @Override
-            public void destroy(Transport transport) {
-                try {
-                    transport.close();
-                } catch (MessagingException e) {
-                    logger.error("can't close transport object: {}", transport, e);
-                }
-            }
-
-            @Override
-            public boolean validate(Transport transport) {
-                return true;
-            }
-
-            @Override
-            public boolean refresh(Transport transport) {
-                try {
-                    if (!transport.isConnected()) {
-                        transport.connect(user, password);
-                    }
-                    return true;
-                } catch (MessagingException e) {
-                    return false;
-                }
-            }
-        });
-
-        return pool;
+        this.pool = pool;
     }
 
     @Override
