@@ -74,12 +74,12 @@ public class MailReqHandler implements ReqHandler {
         } catch (RenderingException e) {
             return Response.bad(req, "missing template field");
         } catch (TemplateNotFoundException e) {
-            logger.error("can't build email content", e);
+            logger.error("invalid template '{}'", template, e);
             return Response.bad(req, "invalid template: " + template);
         } catch (TemplateBindException e) {
             return Response.bad(req, e.getMessage());
         } catch (Exception e) {
-            logger.error("template error", e);
+            logger.error("template error for sending email '{}' to {}", subject, to, e);
             return Response.err(req, e);
         }
         return req;
