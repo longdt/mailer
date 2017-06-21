@@ -29,6 +29,8 @@ public class MailerService {
     static final String MAILER_POOL_PARTITION = "mailer.pool.partition";
     static final String MAILER_POOL_MINSIZE = "mailer.pool.minSize";
     static final String MAILER_POOL_MAXSIZE = "mailer.pool.maxSize";
+    static final String MAILER_POOL_MAX_IDLE_MS = "mailer.pool.maxIdleMs";
+    static final String MAILER_POOL_INTERVAL_CHECK = "mailer.pool.intervalCheck";
     static final String MAILER_HOST = "mailer.listen.host";
     static final String MAILER_PORT = "mailer.listen.port";
 
@@ -48,9 +50,13 @@ public class MailerService {
         int partition = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_PARTITION, 8);
         int maxSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MAXSIZE, 10);
         int minSize = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MINSIZE, 5);
+        int maxIdleMs = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_MAX_IDLE_MS, 120000);
+        int intervalCheck = ConfigUtils.getInt(conf, MailerService.MAILER_POOL_INTERVAL_CHECK, 60000);
         config.setPartitionSize(partition);
         config.setMaxSize(maxSize);
         config.setMinSize(minSize);
+        config.setMaxIdleMilliseconds(maxIdleMs);
+        config.setScavengeIntervalMilliseconds(intervalCheck);
         ObjectPool<Transport> pool = createPool(config, new ObjectFactory<Transport>() {
             @Override
             public Transport create() {
