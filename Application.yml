@@ -3,14 +3,14 @@
   path: log
     #danh sách file log cần moninor
     files:
-        - mailer-error.
+        - mailer-error.log
     #danh sách message pattern để filter log noti tới team phát triển (nếu có)
     patterns:
         - *error*
         - *exception*
     #channel slack noti đến team phát triển
     slackChannels:
-        - dev-stockbook-error
+        - dev-infra-error
     #danh sách email nhận noti
     emails:
         - long.dinhtrong2@vndirect.com.vn
