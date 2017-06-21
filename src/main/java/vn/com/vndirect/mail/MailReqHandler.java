@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectFactory;
 import vn.com.vndirect.pool.ObjectPool;
+import vn.com.vndirect.pool.PartitionObjectPool;
 import vn.com.vndirect.pool.PoolConfig;
 import vn.com.vndirect.util.ConfigUtils;
 import vn.com.vndirect.util.Response;
@@ -51,7 +52,7 @@ public class MailReqHandler implements ReqHandler {
         config.setMaxSize(maxSize);
         config.setMinSize(minSize);
         config.setScavengeIntervalMilliseconds(0);
-        ObjectPool<Transport> pool = new ObjectPool<>(config, new ObjectFactory<Transport>() {
+        ObjectPool<Transport> pool = new PartitionObjectPool<>(config, new ObjectFactory<Transport>() {
             @Override
             public Transport create() {
                 try {

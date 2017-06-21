@@ -7,28 +7,28 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * @author Daniel
  */
-public class ObjectPoolPartition<T> {
+public class SubPool<T> {
 
     private final ObjectPool<T> pool;
     private final PoolConfig config;
     private final int partition;
-    private final BlockingDeque<Poolable<T>> objectQueue;
+    private final BlockingDeque<PartitionPoolable<T>> objectQueue;
     private final ObjectFactory<T> objectFactory;
     private int totalCount;
 
-    public ObjectPoolPartition(ObjectPool<T> pool, int partition, PoolConfig config, ObjectFactory<T> objectFactory) throws InterruptedException {
+    public SubPool(ObjectPool<T> pool, int partition, PoolConfig config, ObjectFactory<T> objectFactory) throws InterruptedException {
         this.pool = pool;
         this.config = config;
         this.objectFactory = objectFactory;
         this.partition = partition;
         this.objectQueue = new LinkedBlockingDeque<>(config.getMaxSize());
         for (int i = 0; i < config.getMinSize(); i++) {
-            objectQueue.put(new Poolable<>(objectFactory.create(), pool, partition));
+            objectQueue.put(new PartitionPoolable<>(objectFactory.create(), pool, partition));
         }
         totalCount = config.getMinSize();
     }
 
-    public BlockingDeque<Poolable<T>> getObjectQueue() {
+    public BlockingDeque<PartitionPoolable<T>> getObjectQueue() {
         return objectQueue;
     }
 
@@ -38,7 +38,7 @@ public class ObjectPoolPartition<T> {
         }
         try {
             for (int i = 0; i < delta; i++) {
-                objectQueue.put(new Poolable<>(objectFactory.create(), pool, partition));
+                objectQueue.put(new PartitionPoolable<>(objectFactory.create(), pool, partition));
             }
             totalCount += delta;
             if (Log.isDebug())
@@ -65,7 +65,7 @@ public class ObjectPoolPartition<T> {
         if (delta <= 0) return;
         int removed = 0;
         long now = System.currentTimeMillis();
-        Poolable<T> obj;
+        PartitionPoolable<T> obj;
         while (delta-- > 0 && (obj = objectQueue.poll()) != null) {
             // performance trade off: delta always decrease even if the queue is empty,
             // so it could take several intervals to shrink the pool to the configured min value.
