@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectFactory;
 import vn.com.vndirect.pool.ObjectPool;
-import vn.com.vndirect.pool.PartitionObjectPool;
+import vn.com.vndirect.pool.PartitionPool;
 import vn.com.vndirect.pool.PoolConfig;
 import vn.com.vndirect.util.ConfigUtils;
 import vn.com.vndirect.util.Response;
@@ -51,13 +51,14 @@ public class MailReqHandler implements ReqHandler {
         config.setPartitionSize(partition);
         config.setMaxSize(maxSize);
         config.setMinSize(minSize);
-        config.setScavengeIntervalMilliseconds(0);
-        ObjectPool<Transport> pool = new PartitionObjectPool<>(config, new ObjectFactory<Transport>() {
+        if (partition > 0) {
+            config.setScavengeIntervalMilliseconds(0);
+        }
+        ObjectPool<Transport> pool = new PartitionPool<>(config, new ObjectFactory<Transport>() {
             @Override
             public Transport create() {
                 try {
-                    Transport transport = session.getTransport("smtp");
-                    return transport;
+                    return session.getTransport("smtp");
                 } catch (NoSuchProviderException e) {
                     logger.error("can't create a connected Transport object", e);
                     return null;
@@ -77,7 +78,20 @@ public class MailReqHandler implements ReqHandler {
             public boolean validate(Transport transport) {
                 return true;
             }
+
+            @Override
+            public boolean refresh(Transport transport) {
+                try {
+                    if (!transport.isConnected()) {
+                        transport.connect(user, password);
+                    }
+                    return true;
+                } catch (MessagingException e) {
+                    return false;
+                }
+            }
         });
+
         return pool;
     }
 
@@ -114,7 +128,7 @@ public class MailReqHandler implements ReqHandler {
         } catch (TemplateNotFoundException e) {
             logger.error("can't build email content", e);
             return Response.bad(req, "invalid template: " + template);
-        } catch(TemplateBindException e) {
+        } catch (TemplateBindException e) {
             return Response.bad(req, e.getMessage());
         } catch (Exception e) {
             logger.error("template error", e);

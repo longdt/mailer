@@ -11,4 +11,6 @@ public interface ObjectFactory<T> {
 
     boolean validate(T t);
 
+    boolean refresh(T t);
+
 }
