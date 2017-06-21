@@ -37,6 +37,7 @@ public class ConcurrentPool<T> implements ObjectPool<T> {
             Poolable<T> obj;
             while (!shuttingDown && checkSize > 0 && (obj = objectDeque.pollLast()) != null) {
                 if (obj.getLastAccessTs() + maxIdleMs > System.currentTimeMillis()) {
+                    objectDeque.offerLast(obj);
                     break;
                 } else if (factory.refresh(obj.getObject())) {
                     returnObject(obj);
