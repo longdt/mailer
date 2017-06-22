@@ -22,6 +22,7 @@ import java.nio.file.Path;
  */
 public class MailSender implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(MailSender.class);
+    private static final String DEFAULT_CONTENT_TYPE = "text/html; charset=UTF-8";
     private Session session;
     private ObjectPool<Transport> pool;
     private String user;
@@ -51,7 +52,8 @@ public class MailSender implements Runnable {
     }
 
     Message buildMessage() throws MessagingException, IOException {
-        Message message = new MimeMessage(session);
+        MimeMessage message = new MimeMessage(session);
+        message.setHeader("Content-Type", DEFAULT_CONTENT_TYPE);
         message.setFrom(fromAddress);
         message.setRecipients(javax.mail.Message.RecipientType.TO,
                 InternetAddress.parse(toAddress));
@@ -64,11 +66,11 @@ public class MailSender implements Runnable {
                     InternetAddress.parse(bcAddress));
         }
 
-        message.setSubject(subject);
+        message.setSubject(subject, "UTF-8");
 
         MimeMultipart content = new MimeMultipart("related");
         BodyPart textPart = new MimeBodyPart();
-        textPart.setContent(htmlContent, "text/html; charset=UTF-8");
+        textPart.setContent(htmlContent, DEFAULT_CONTENT_TYPE);
 
         // add it
         content.addBodyPart(textPart);
