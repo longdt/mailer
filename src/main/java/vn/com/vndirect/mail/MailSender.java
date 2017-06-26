@@ -124,7 +124,8 @@ public class MailSender implements Runnable {
             send(message);
             Response.ok(req);
             logger.info("send success '{}' to {}", subject, toAddress);
-        } catch (AddressException e) {
+        } catch (AddressException | SendFailedException e) {
+            logger.error("can't send mail '{}' to {}", subject, toAddress, e);
             Response.bad(req, "invalid address");
         } catch (Exception e) {
             logger.error("can't send mail '{}' to {}", subject, toAddress, e);
