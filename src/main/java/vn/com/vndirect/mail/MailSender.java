@@ -100,7 +100,20 @@ public class MailSender implements Runnable {
             if (!transport.isConnected()) {
                 transport.connect(user, password);
             }
-            transport.sendMessage(message, message.getAllRecipients());
+            send(transport, message, message.getAllRecipients());
+        }
+    }
+
+    private void send(Transport transport, Message message, Address[] addresses) throws MessagingException {
+        try {
+            transport.sendMessage(message, addresses);
+        } catch (MessagingException e) {
+            if (e instanceof SendFailedException) {
+                throw e;
+            } else if (!transport.isConnected()) {
+                transport.connect(user, password);
+            }
+            transport.sendMessage(message, addresses);
         }
     }
 
