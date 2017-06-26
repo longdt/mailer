@@ -1,0 +1,70 @@
+@args (String cashAvailble,String contractType,String createdDate,String customerId,String email,String fullName,String nav,String phone,String portfolioTable,String question,String requestType)
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+
+<style>
+<!--
+td {
+	border: 1px solid #DCDCDC;
+}
+-->
+</style>
+
+<body>
+	<h3>THÔNG TIN CÁ NHÂN</h3>
+	<table border="1" width="100%" cellspacing="1" cellpadding="0">
+		<tr>
+			<td>Họ và tên</td>
+			<td>@fullName</td>
+		</tr>
+		<tr>
+			<td>Customer Id</td>
+			<td>@customerId</td>
+		</tr>
+		<tr>
+			<td>Contract Type</td>
+			<td>@contractType</td>
+		</tr>
+		<tr>
+			<td>Điện thoại</td>
+			<td>@phone</td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td>@email</td>
+		</tr>
+	</table>
+
+	<h3>YÊU CẦU</h3>
+	<table border="1" width="100%" cellspacing="1" cellpadding="0">
+		<tr>
+			<td>Ngày gửi</td>
+			<td>@createdDate</td>
+		</tr>
+		<tr>
+			<td>Câu hỏi</td>
+			<td>@question</td>
+		</tr>
+	</table>
+	#if(@requestType == "portfolio")
+	<h3>THÔNG TIN TÀI KHOẢN</h3>
+	<table border="1" width="100%" cellspacing="1" cellpadding="0">
+		<tr>
+			<td>Tổng tài sản</td>
+			<td>@nav</td>
+		</tr>
+		<tr>
+			<td>Số tiền được rút</td>
+			<td>@cashAvailble</td>
+		</tr>
+	</table>
+	@portfolioTable
+	#end
+	
+</body>
+</html>

@@ -1,0 +1,65 @@
+@args (String date_of_birth,String email,String full_name,String id_number,String mobile_phone,String registered_date)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<div style="width: 600px">
+		<table border="0" width="100%" cellspacing="1" cellpadding="0"
+			id="table1">
+			<tr>
+				<td><font face="Arial" size="2">Dear dịch vụ khách hàng!</font></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="2"><font size="2"
+					face="Arial, Helvetica, sans-serif" style="line-height: 24px;">
+						<span>Tên khách hàng:</span><span style="font-weight: bold;">@full_name</span>
+				</font><br /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><font size="2"
+					face="Arial, Helvetica, sans-serif" style="line-height: 24px;">
+						<span>Ngày sinh:</span><span style="font-weight: bold;">@date_of_birth</span>
+				</font><br /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><font size="2"
+					face="Arial, Helvetica, sans-serif" style="line-height: 24px;">
+						<span>Số CMND:</span><span style="font-weight: bold;">@id_number</span>
+				</font><br /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><font size="2"
+					face="Arial, Helvetica, sans-serif" style="line-height: 24px;">
+						<span>Số điện thoại:</span><span style="font-weight: bold;">@mobile_phone</span>
+				</font><br /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><font size="2"
+					face="Arial, Helvetica, sans-serif" style="line-height: 24px;">
+						<span>Email:</span><span style="font-weight: bold;">@email</span>
+				</font><br /></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="line-height: 24px;"><span>Đã đăng
+						ký mở tài khoản tại VNDIRECT vào ngày
+						@registered_date không thành công</span></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="line-height: 24px;"><span>Lỗi gặp
+						phải:</span><strong>Thông tin truyền từ website sang CRM tạo
+						lead không thành công.</strong></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="line-height: 24px;"><strong>Vui
+						lòng liên hệ lại để tạo lead cho KH!</strong></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
