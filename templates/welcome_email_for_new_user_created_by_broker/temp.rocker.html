@@ -1,4 +1,4 @@
-@args (String contract_dowload_url,String contract_number,String custody_number,String full_name,String username, String broker_name, String broker_department, String broker_fee)
+@args (String contract_dowload_url,String contract_number,String custody_number,String full_name,String username, String broker_name, String broker_department, String broker_fee, String register_otp_url)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -30,7 +30,7 @@
 			mã xác minh theo đường dẫn sau:</p>
 
 		<div style="text-align: center; color: rgb(0, 0, 255);">
-			<a href="$email.getItem('register_otp_url')" target="_blank">CÀI
+			<a href="@register_otp_url" target="_blank">CÀI
 				ĐẶT TẦNG BẢO MẬT SỐ 2</a>
 		</div>
 		<p>
