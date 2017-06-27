@@ -1,4 +1,4 @@
-@args (String contract_dowload_url,String contract_number,String custody_number,String full_name,String username, String broker_name, String broker_department)
+@args (String contract_dowload_url,String contract_number,String custody_number,String full_name,String username, String broker_name, String broker_department, String broker_fee)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -19,8 +19,7 @@
 			<li style="margin: 0;">Số tài khoản giao dịch: <b>@contract_number</b></li>
 			<li style="margin: 0;">Số tài khoản lưu ký: <b>@custody_number</b></li>
 			<li style="margin: 0;">Tên đăng nhập: <b>@username</b></li>
-			<li style="margin: 0;">Tài khoản của quý khách sẽ được quản lý bởi Môi giới: <b>@broker_name</b></li>
-			<li style="margin: 0;">Phòng: <b>@broker_department</b></li>
+			<li style="margin: 0;">Tài khoản của quý khách sẽ được quản lý bởi Môi giới: <b>@broker_name</b>, phòng: <b>@broker_department</b> với mức phí <b>@broker_fee %</b></b></li>
 		</ul>
 		<div style="font-style: italic;">(Quý khách vui lòng đổi mật
 			khẩu để đảm bảo an toàn cho tài khoản giao dịch)</div>
