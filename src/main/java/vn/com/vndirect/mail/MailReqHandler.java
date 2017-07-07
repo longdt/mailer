@@ -65,23 +65,27 @@ public class MailReqHandler implements ReqHandler {
             BindableRockerModel emailTemp = Rocker.template(template + "/" + templateFile);
             if (tempFields != null) {
                 for (Map.Entry<String, Object> entry : tempFields.entrySet()) {
-                    emailTemp.bind(entry.getKey(), entry.getValue());
+                    String value = (String) entry.getValue();
+                    if (value == null) {
+                        value = "";
+                    }
+                    emailTemp.bind(entry.getKey(), value);
                 }
             }
             String content = emailTemp.render().toString();
             req.async();
             Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template, req));
         } catch (RenderingException e) {
-            logger.error("missing template field of template '{}' when sends '{}' to {}", template, subject, to, e);
+            logger.error("missing template field of template '{}'/{} when sends '{}' to {}", template, tempFields, subject, to, e);
             return Response.bad(req, "missing template field");
         } catch (TemplateNotFoundException e) {
             logger.error("invalid template '{}' when sends '{}' to {}", template, subject, to, e);
             return Response.bad(req, "invalid template: " + template);
         } catch (TemplateBindException e) {
-            logger.error("can't bind template '{}' when sends '{}' to {}", template, subject, to, e);
+            logger.error("can't bind template '{}'/{} when sends '{}' to {}", template, tempFields, subject, to, e);
             return Response.bad(req, e.getMessage());
         } catch (Exception e) {
-            logger.error("template '{}' error when sends '{}' to {}", template, subject, to, e);
+            logger.error("template '{}'/{} error when sends '{}' to {}", template, tempFields, subject, to, e);
             return Response.err(req, e);
         }
         return req;
