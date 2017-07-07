@@ -1,4 +1,4 @@
-@args (String active_url,String denied_url,String email,String full_name,String id_date,String id_number,String id_place,String mobile_phone, String broker_name, String broker_department)
+@args (String active_url,String denied_url,String email,String full_name,String id_date,String id_number,String id_place,String mobile_phone, String broker_name, String broker_department, String broker_fee)
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -34,9 +34,7 @@
 	</tr>
 	<tr><td>Số điện thoại: <strong>@mobile_phone</strong></td></tr>
 	<tr><td>Email: <strong>@email</strong></td></tr>
-	<tr><td>Tài khoản của quý khách sẽ được quản lý bởi Môi giới:<strong>@broker_name</strong></td></tr>
-	<tr><td>Phòng:<strong>@broker_department</strong></td></tr>
-
+	<tr><td>Tài khoản của quý khách sẽ được quản lý bởi Môi giới:<strong>@broker_name</strong>, phòng:<strong>@broker_department</strong> với mức phí <strong>@broker_fee %</strong></td></tr>
 	<tr>
 	<td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">
 			<span>Nếu những thông tin trên là chính xác, Quý khách vui lòng xác nhận theo đường dẫn sau: <br/></span>
