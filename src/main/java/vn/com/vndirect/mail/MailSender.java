@@ -1,26 +1,28 @@
 package vn.com.vndirect.mail;
 
-import org.rapidoid.http.Req;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectPool;
 import vn.com.vndirect.pool.Poolable;
-import vn.com.vndirect.util.Response;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.Callable;
 
 /**
  * Created by naruto on 6/6/17.
  */
-public class MailSender implements Runnable {
+public class MailSender implements Callable<Void> {
     private static final Logger logger = LoggerFactory.getLogger(MailSender.class);
     private static final String DEFAULT_CONTENT_TYPE = "text/html; charset=UTF-8";
     private Session session;
@@ -34,9 +36,8 @@ public class MailSender implements Runnable {
     private String subject;
     private String htmlContent;
     private String imgPath;
-    private Req req;
 
-    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String ccAddress, String bcAddress, String subject, String htmlContent, String imgPath, Req req) {
+    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String ccAddress, String bcAddress, String subject, String htmlContent, String imgPath) {
         this.session = session;
         this.pool = pool;
         this.user = user;
@@ -48,7 +49,6 @@ public class MailSender implements Runnable {
         this.subject = subject;
         this.htmlContent = htmlContent;
         this.imgPath = imgPath;
-        this.req = req;
     }
 
     Message buildMessage() throws MessagingException, IOException {
@@ -118,20 +118,9 @@ public class MailSender implements Runnable {
     }
 
     @Override
-    public void run() {
-        try {
-            Message message = buildMessage();
-            send(message);
-            Response.ok(req);
-            logger.info("send success '{}' to {}", subject, toAddress);
-        } catch (AddressException | SendFailedException e) {
-            logger.error("can't send mail '{}' to {}", subject, toAddress, e);
-            Response.bad(req, "invalid address");
-        } catch (Exception e) {
-            logger.error("can't send mail '{}' to {}", subject, toAddress, e);
-            Response.err(req, e);
-        } finally {
-            req.done();
-        }
+    public Void call() throws Exception {
+        Message message = buildMessage();
+        send(message);
+        return null;
     }
 }

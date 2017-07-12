@@ -6,14 +6,13 @@ import org.rapidoid.http.ReqHandler;
 import org.rapidoid.job.Jobs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vn.com.vndirect.pool.ObjectFactory;
 import vn.com.vndirect.pool.ObjectPool;
-import vn.com.vndirect.pool.PartitionPool;
-import vn.com.vndirect.pool.PoolConfig;
-import vn.com.vndirect.util.ConfigUtils;
 import vn.com.vndirect.util.Response;
 
-import javax.mail.*;
+import javax.mail.Address;
+import javax.mail.SendFailedException;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.nio.file.Path;
@@ -73,8 +72,17 @@ public class MailReqHandler implements ReqHandler {
                 }
             }
             String content = emailTemp.render().toString();
-            req.async();
-            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template, req));
+
+            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template), (result, error) -> {
+                if (error == null) {
+                    logger.info("send success '{}' to {}", subject, to);
+                } else if (error instanceof AddressException || error instanceof SendFailedException) {
+                    logger.error("invalid email address when send mail '{}' to {}", subject, to, error);
+                } else {
+                    logger.error("can't send mail '{}' to {}", subject, to, error);
+                }
+            });
+            Response.ok(req);
         } catch (RenderingException e) {
             logger.error("missing template field of template '{}'/{} when sends '{}' to {}", template, tempFields, subject, to, e);
             return Response.bad(req, "missing template field");
