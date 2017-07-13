@@ -82,6 +82,7 @@ public class MailReqHandler implements ReqHandler {
                     logger.error("can't send mail '{}' to {}", subject, to, error);
                 }
             });
+            logger.info("sent sendmail request '{}' to {}", subject, to);
             Response.ok(req);
         } catch (RenderingException e) {
             logger.error("missing template field of template '{}'/{} when sends '{}' to {}", template, tempFields, subject, to, e);
