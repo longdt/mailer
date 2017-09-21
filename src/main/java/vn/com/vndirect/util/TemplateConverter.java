@@ -12,8 +12,8 @@ import java.util.*;
  * Created by naruto on 6/14/17.
  */
 public class TemplateConverter {
-    private static final String FIELD_PREFIX = "$email.getItem(\"";
-    private static final String FIELD_SUFIX = "\")";
+    private static final String FIELD_PREFIX = "$email.getItem(";
+    private static final String FIELD_SUFIX = ")";
 
     public String convert(String oldTemp) {
         oldTemp = oldTemp.replace("@", "@@");
@@ -40,8 +40,8 @@ public class TemplateConverter {
         for (int i = 0; i < occurFields.size(); ++i) {
             field = occurFields.get(i);
             idx = idxFields.get(i);
-            temp.append(oldTemp.substring(start, idx - FIELD_PREFIX.length())).append('@').append(field);
-            start = idx + field.length() + FIELD_SUFIX.length();
+            temp.append(oldTemp.substring(start, idx - FIELD_PREFIX.length() - 1)).append('@').append(field);
+            start = idx + field.length() + FIELD_SUFIX.length() + 1;
         }
         temp.append(oldTemp.substring(start));
         return temp.toString();
@@ -51,14 +51,15 @@ public class TemplateConverter {
         int idx = 0;
         while ((idx = oldTemp.indexOf(FIELD_PREFIX, idx)) >= 0) {
             idx += FIELD_PREFIX.length();
-            int end = oldTemp.indexOf(FIELD_SUFIX, idx);
+            char c = oldTemp.charAt(idx++);
+            int end = oldTemp.indexOf(c + FIELD_SUFIX, idx);
             if (end < 0) {
                 return;
             }
             String field = oldTemp.substring(idx, end);
             occurFields.add(field);
             idxFields.add(idx);
-            idx = end + FIELD_SUFIX.length();
+            idx = end + FIELD_SUFIX.length() + 1;
         }
     }
 
