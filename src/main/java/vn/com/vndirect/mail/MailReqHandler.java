@@ -1,6 +1,7 @@
 package vn.com.vndirect.mail;
 
 import com.fizzed.rocker.*;
+import org.rapidoid.data.JSON;
 import org.rapidoid.http.Req;
 import org.rapidoid.http.ReqHandler;
 import org.rapidoid.job.Jobs;
@@ -17,6 +18,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -64,9 +66,9 @@ public class MailReqHandler implements ReqHandler {
             BindableRockerModel emailTemp = Rocker.template(template + "/" + templateFile);
             if (tempFields != null) {
                 for (Map.Entry<String, Object> entry : tempFields.entrySet()) {
-                    String value = (String) entry.getValue();
-                    if (value == null) {
-                        value = "";
+                    Object value = entry.getValue();
+                    if (value instanceof Map || value instanceof List) {
+                        value = JSON.MAPPER.valueToTree(value);
                     }
                     emailTemp.bind(entry.getKey(), value);
                 }
