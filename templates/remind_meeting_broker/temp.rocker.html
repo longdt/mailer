@@ -33,7 +33,7 @@
 			text-align: center;
 		}
 		#item .content {
-			width: 95%;
+			width: 80%;
 			height: 100%;
 			float: left;
 			margin: 0 0 0 -1px;
@@ -51,7 +51,7 @@
 	<br/>
 	@for(int i = 0; i < todayMeetings.size(); ++i) {
 	<div id="item">
-		<div class="index">@i</div>
+		<div class="index">@(i + 1)</div>
 		<div class="content">
 			@with (customer = todayMeetings.get(i).get("customer"), bookedTime = todayMeetings.get(i).get("bookedTime")) {
 			<div>Khách hàng: @?customer.get("fullname")</div>
@@ -71,7 +71,7 @@
 	<br/>
 	@for(int i = 0; i < missedMeetings.size(); ++i) {
 	<div id="item">
-		<div class="index">@i</div>
+		<div class="index">@(i + 1)</div>
 		<div class="content">
 			@with (customer = missedMeetings.get(i).get("customer"), bookedTime = missedMeetings.get(i).get("bookedTime")) {
 			<div>Khách hàng: @?customer.get("fullname")</div>
