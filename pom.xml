@@ -6,7 +6,7 @@
 
     <groupId>vn.com.vndirect</groupId>
     <artifactId>mailer</artifactId>
-    <version>1.0.7-SNAPSHOT</version>
+    <version>1.0.7.bundle</version>
     <build>
         <plugins>
             <plugin>
@@ -87,14 +87,14 @@
         <dependency>
             <groupId>com.fizzed</groupId>
             <artifactId>rocker-runtime</artifactId>
-            <version>0.20.0</version>
+            <version>0.22.0</version>
         </dependency>
 
         <!-- for hot-reloading support only during development -->
         <dependency>
             <groupId>com.fizzed</groupId>
             <artifactId>rocker-compiler</artifactId>
-            <version>0.20.0</version>
+            <version>0.22.0</version>
             <!--<scope>provided</scope>-->
         </dependency>
         <dependency>
