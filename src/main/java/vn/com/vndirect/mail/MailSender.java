@@ -97,12 +97,20 @@ public class MailSender implements Callable<Void> {
 
     void send(Message message) throws MessagingException {
         message.saveChanges();
-        try (Poolable<Transport> obj = pool.borrowObject()) {
-            Transport transport = obj != null ? obj.getObject() : session.getTransport("smtp");
+        Poolable<Transport> obj = pool.borrowObject();
+        Transport transport = null;
+        try {
+            transport = obj != null ? obj.getObject() : session.getTransport("smtp");
             if (!transport.isConnected()) {
                 transport.connect(user, password);
             }
             send(transport, message, message.getAllRecipients());
+        } finally {
+            if (obj != null) {
+                obj.close();
+            } else if (transport != null) {
+                transport.close();
+            }
         }
     }
 
