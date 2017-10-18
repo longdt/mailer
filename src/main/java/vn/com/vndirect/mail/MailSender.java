@@ -1,9 +1,11 @@
 package vn.com.vndirect.mail;
 
+import org.rapidoid.u.U;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectPool;
 import vn.com.vndirect.pool.Poolable;
+import vn.com.vndirect.util.ConfigUtils;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -108,12 +110,36 @@ public class MailSender implements Callable<Void> {
         try {
             transport.sendMessage(message, addresses);
         } catch (MessagingException e) {
-            if (e instanceof SendFailedException) {
-                throw e;
-            } else if (!transport.isConnected()) {
-                transport.connect(user, password);
-            }
+            resendOnError(transport, message, addresses, e);
+        }
+    }
+
+    private void resendOnError(Transport transport, Message message, Address[] addresses, MessagingException e) throws MessagingException {
+        if (!transport.isConnected()) {
+            transport.connect(user, password);
+        }
+
+        if (!(e instanceof SendFailedException)) {
             transport.sendMessage(message, addresses);
+            return;
+        }
+
+        SendFailedException sfe = (SendFailedException) e;
+        addresses = sfe.getValidUnsentAddresses();
+        if (!U.isEmpty(sfe.getInvalidAddresses()) || U.isEmpty(addresses)) {
+            throw e;
+        }
+
+        try {
+            transport.sendMessage(message, addresses);
+        } catch (SendFailedException newSfe) {
+            Address[] validSent = ConfigUtils.mergeArray(sfe.getValidSentAddresses(), newSfe.getValidSentAddresses());
+            Address[] validUnsent = newSfe.getValidUnsentAddresses();
+            Address[] invalid = ConfigUtils.mergeArray(sfe.getInvalidAddresses(), newSfe.getInvalidAddresses());
+            throw new SendFailedException(newSfe.getMessage(), newSfe.getNextException(), validSent, validUnsent, invalid);
+        } catch (MessagingException me) {
+            e.setNextException(me);
+            throw e;
         }
     }
 
