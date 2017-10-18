@@ -5,6 +5,7 @@ import org.rapidoid.data.JSON;
 import org.rapidoid.http.Req;
 import org.rapidoid.http.ReqHandler;
 import org.rapidoid.job.Jobs;
+import org.rapidoid.u.U;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vn.com.vndirect.pool.ObjectPool;
@@ -26,9 +27,9 @@ import java.util.Properties;
  * Created by naruto on 6/7/17.
  */
 public class MailReqHandler implements ReqHandler {
-    private static final Logger logger = LoggerFactory.getLogger(MailReqHandler.class);
     static final Path templatesDir = Paths.get("templates");
     static final String templateFile = "temp.rocker.html";
+    private static final Logger logger = LoggerFactory.getLogger(MailReqHandler.class);
     private Session session;
     private String user;
     private String password;
@@ -78,7 +79,7 @@ public class MailReqHandler implements ReqHandler {
             Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template), (result, error) -> {
                 if (error == null) {
                     logger.info("send success '{}' to {}", subject, to);
-                } else if (error instanceof AddressException || error instanceof SendFailedException) {
+                } else if (error instanceof AddressException || (error instanceof SendFailedException && !U.isEmpty(((SendFailedException) error).getInvalidAddresses()))) {
                     logger.error("invalid email address when send mail '{}' to {}", subject, to, error);
                 } else {
                     logger.error("can't send mail '{}' to {}", subject, to, error);
