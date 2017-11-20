@@ -1,0 +1,32 @@
+@args (String fullname, String brokerName, String accountNo, Integer serviceId, String serviceName, String serviceUrl)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+	</style>
+</head>
+<body>
+<div style="width:900px">
+	<h4>Kính chào Quý khách: @fullname,</h4>
+	<br>
+
+	<b>Công ty Cổ phần Chứng khoán VNDIRECT (VNDS)</b> xin chân thành thông báo anh/chị được khuyến nghị sử  dụng sản phẩm/ dịch vụ @serviceName bởi người chăm sóc @brokerName.
+	<br>
+	<br>
+	Nếu Anh chị có nhu cầu đăng ký sản phẩm xin vui lòng click vào Link để hoàn xác thực đăng kí.
+	<br>
+	<br>
+	<a href="https://customer-profile.vndirect.com.vn/service/register/confirm?accountNo=@accountNo&serviceId=@serviceId&@serviceName=@serviceName&serviceUrl=@serviceUrl">Đăng kí</a>
+	hoặc bấm vào đây để <a href="@serviceUrl">tìm hiểu thêm</a>
+	<br>
+	<br>
+	Nếu anh/ chị có thắc mắc hoặc cần thêm thông tin, vui lòng chọn [TƯ VẤN], VNDIRECT sẽ liên hệ lại để hỗ trợ. Rất mong nhận được phản hồi từ anh chị!
+	<hr>
+	<br>
+	Công ty Cổ phần Chứng khoán VNDIRECT (VNDS) xin chân thành cảm ơn Quý Khách đã tin tưởng sử dụng dịch vụ của Chúng tôi trong thời gian qua.
+</div>
+</body>
+</html>
+
