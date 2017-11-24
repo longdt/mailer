@@ -1,4 +1,4 @@
-@args (String full_name,String username, String accountNo, String home_url)
+@args (String active_url,String email,String full_name,String gender,String id_number,String mobile_phone,String password,String username)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -18,13 +18,17 @@
 		<tr><td>&nbsp;  </td><td> </td></tr>
 		<tr><td>Welcome to FINANSIA SYRUS SECURITIES.</td></tr>
 		<tr><td>We would like to thank you for opening your account at Finansia Syrus. Your Finansia Syrus Trading Account was successfully opened. Your trading information is listed below:</td></tr>
-		<tr><td>Username: <strong>@username</strong></td></tr>
-		<tr><td>Password: Please view in the previous email</td></tr>
-		<tr><td>Account Number: <strong>@accountNo</strong></td></tr>
+        <tr><td>User Name: <strong>@username</strong></td></tr>
+        <tr><td>Password: <strong>@password</strong></td></tr>
+        <tr><td>Full Name: <strong>@full_name</strong></td></tr>
+        <tr><td>Gender: <strong>@gender</strong></td></tr>
+        <tr><td>Identification Number: <strong>@id_number</strong></td></tr>
+        <tr><td>Phone Number: <strong>@mobile_phone</strong></td></tr>
+        <tr><td>Email: <strong>@email</strong></td></tr>
 
 		<tr>
 			<td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">Notice: For security reasons, you must change your password after login in the first time. To change your password, click link:</font>
-				<div style="text-align: center;"><a style="font-weight: bold;" href='@home_url'>CHANGE YOUR PASSWORD</a></div>
+				<div style="text-align: center;"><a style="font-weight: bold;" href='https://vntrade.fnsyrus.com'>CHANGE YOUR PASSWORD</a></div>
 			</td>
 		</tr>
 		<tr><td>Follow the instruction to change your password as below:</td></tr>
