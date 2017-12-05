@@ -1,4 +1,4 @@
-@args (String active_url,String email,String full_name,String gender,String id_number,String mobile_phone,String password,String username)
+@args (String active_url,String email,String full_name,String gender,String id_number,String mobile_phone,String password,String username, String company_name, String full_company_name, String address, String contact_number, String website_url)
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -22,7 +22,7 @@
 		<td>&nbsp;  </td>
 		<td> </td>
 	</tr>
-	<tr><td>You are opening a VNDIRECT Trading Account with the information below:</td></tr>
+	<tr><td>You are opening a @company_name Trading Account with the information below:</td></tr>
 	<tr><td>User Name: <strong>@username</strong></td></tr>
 	<tr><td>Password: <strong>@password</strong></td></tr>
 	<tr><td>Full Name: <strong>@full_name</strong></td></tr>
@@ -36,13 +36,8 @@
 			<span>To verify your account, please click the following link: <br/></span>
 			</font>
 			<div  style="text-align: center;"><a style="font-weight: bold;" href='@active_url'>VERIFY ACCOUNT</a></div>
-			<span>By accessing this link, you are ensuring about all information which was given to VNDIRECT. VNDIRECT is not responsible for any incorrect information.</span>
+			<span>By accessing this link, you are ensuring about all information which was given to @company_name. @company_name is not responsible for any incorrect information.</span>
 		</td>
-	</tr>
-	<tr>
-	  <td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">Notice: For security reasons, you must change your password after login in the first time. To change your password, click link:</font>
-	       <div style="text-align: center;"><a style="font-weight: bold;" href='https://invest.vndirect.com.vn/'>CHANGE YOUR PASSWORD</a></div>
-	  </td>
 	</tr>
 	<tr>
 	  <td colspan="2"><p><font size="2" face="Arial, Helvetica, sans-serif">For any request, please contact our Customer Service Department via 1900 5454 09 or email <a style="color: #f8941d; text-decoration: none;" href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a></font></p>
@@ -50,12 +45,10 @@
 	</tr>
 	 <tr>
         <td style="font-family:Arial; font-size: 13px;line-height: 15px;"><p style="font-style: italic;">Best Regards,</p>
-        <p>VNDIRECT Securities Corporation</p>
-        <p>No.1 Nguyen Thuong Hien street, Hanoi, Vietnam</p>
-        <p>Tele : (84 4) 39410622</p>
-        <p>Fax : (84 4) 39724600</p>
-        <p>Hotline : 1900-54 54-09</p>
-        <p>Website : <a style="color: #f8941d; text-decoration: none;" href="https://www.vndirect.com.vn">https://www.vndirect.com.vn</a></p>
+        <p>@full_company_name</p>
+        <p>Address : @address</p>
+        <p>Contact number : @contact_number</p>
+        <p>Website : <a style="color: #f8941d; text-decoration: none;" href="@website_url">https://www.vndirect.com.vn</a></p>
         </td>
     </tr>
 </table>
