@@ -15,7 +15,6 @@
 				font-weight: 600;
 			}
 			.btn1 {
-				margin: 0 10px 0 -150px;
 				width: 140px;
 				height: 35px;
 				line-height: 35px;
@@ -25,11 +24,10 @@
 				float: left;
 				color: white;
 				border-radius: 3px;
-				left: 50%;
-				position: absolute;
+				text-align: center;
+				font-size: 13px;
 			}
 			.btn2 {
-				margin: 0 auto;
 				width: 140px;
 				height: 35px;
 				line-height: 35px;
@@ -39,8 +37,8 @@
 				float: left;
 				color: white;
 				border-radius: 3px;
-				left: 50%;
-				position: absolute;
+				text-align: center;
+				font-size: 13px;
 			}
 		</style>
 </head>
@@ -62,10 +60,16 @@
 </ul>
 <p><i><b>(*) Phí giao dịch được áp dụng theo quy định chung của VNDIRECT từng thời kỳ.</b></i></p>
 <p>Quý khách muốn đăng ký ngay dịch vụ <b style="color: rgb(196, 89, 17);">Môi giới chứng khoán Phái sinh</b> để Môi giới <b>@brokerName</b> tiếp tục chăm sóc tài khoản chứng khoán Phái sinh hay không?</p>
-<div style="width: 100%; text-align: center;">
-	<a href="https://customer-profile.vndirect.com.vn/service/register/confirm?promotionId=@promotionId&customerId=@customerId&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId" class="btn1">ĐỒNG Ý</a>
-	<a href="@(serviceUrl.contains("?") ? serviceUrl + "&" : serviceUrl + "?")utm_source=promote-request&utm_medium=email&utm_campaign=@brokerId&utm_content=@serviceId" class="btn2">TÌM HIỂU THÊM</a>
-</div>
+<table style="margin: 0 auto;">
+	<tr>
+		<td>
+			<a href="https://customer-profile.vndirect.com.vn/service/register/confirm?promotionId=@promotionId&customerId=@customerId&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId" class="btn1">ĐỒNG Ý</a>
+		</td>
+		<td>
+			<a href="@(serviceUrl.contains("?") ? serviceUrl + "&" : serviceUrl + "?")utm_source=promote-request&utm_medium=email&utm_campaign=@brokerId&utm_content=@serviceId" class="btn2">TÌM HIỂU THÊM</a>
+		</td>
+	</tr>
+</table>
 <br/>
 <br/>
 <p>Nếu Quý khách có thắc mắc hoặc cần thêm thông tin, vui lòng liệc lạc với nhân viên Môi giới, gọi đến tổng đài 1900 545409 để được hỗ trợ nhanh.</p>
