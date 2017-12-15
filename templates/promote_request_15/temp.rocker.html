@@ -1,34 +1,83 @@
 @args (Integer promotionId, String customerId, String fullname, String brokerId, String brokerName, Integer serviceId, String serviceName, String serviceUrl)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<style>
-	</style>
+	<style type="text/css">
+			body {
+				font-family: 'tahoma';
+				text-align: justify;
+				font-size: 14px;
+				color: rgb(87, 87, 87);
+			}
+			.hello {
+				font-style: italic;
+				font-weight: 600;
+			}
+			.btn1 {
+				margin: 0 10px 0 -150px;
+				width: 140px;
+				height: 35px;
+				line-height: 35px;
+				text-decoration: none;
+				display: block;
+				background: rgb(196, 89, 17);
+				float: left;
+				color: white;
+				border-radius: 3px;
+				left: 50%;
+				position: absolute;
+			}
+			.btn2 {
+				margin: 0 auto;
+				width: 140px;
+				height: 35px;
+				line-height: 35px;
+				text-decoration: none;
+				display: block;
+				background: rgb(87, 87, 87);
+				float: left;
+				color: white;
+				border-radius: 3px;
+				left: 50%;
+				position: absolute;
+			}
+		</style>
 </head>
 <body>
-<div style="width:900px">
-	<h4>Kính chào Quý khách: @fullname,</h4>
-	<br>
-
-	<b>Công ty Cổ phần Chứng khoán VNDIRECT (VNDS)</b> xin chân thành thông báo anh/chị được khuyến nghị sử  dụng sản phẩm/ dịch vụ @serviceName bởi người chăm sóc @brokerName.
-	<br>
-	<br>
-	Nếu Anh chị có nhu cầu đăng ký sản phẩm xin vui lòng click vào Link để hoàn xác thực đăng kí.
-	<br>
-	<br>
-	<a href="https://customer-profile.vndirect.com.vn/service/register/confirm?promotionId=@promotionId&customerId=@customerId&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&referrer=@brokerId">Đăng kí</a>
-	hoặc bấm vào đây để <a href="@serviceUrl">tìm hiểu thêm</a>
-	<br>
-	<p style="text-align: left;">
-		Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b>1900 54 54
-		09 </b> hoặc gửi email tới địa chỉ <a target="_blank"
-											  href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
-	</p>
-	<br>
-	Công ty Cổ phần Chứng khoán VNDIRECT (VNDS) xin chân thành cảm ơn Quý Khách đã tin tưởng sử dụng dịch vụ của Chúng tôi trong thời gian qua.
+<p class="hello">Kính chào Quý khách: @fullname,</p>
+<p>Công ty Cổ phần Chứng khoán <b>VNDIRECT (VNDS)</b> xin chân thành cảm ơn Quý Khách đã tin tưởng sử dụng dịch vụ của Chúng tôi trong thời gian qua.</p>
+<p>Chứng khoán Phái sinh đang nhận được sự quan tâm rất lớn từ nhà đầu tư Việt Nam, đây là thị trường mới và hứa hẹn mở ra cơ hội đầu tư đầy tiềm năng. Chính vì lý do đó, VNDIRECT triển khai dịch vụ <b style="color: rgb(196, 89, 17);">Môi giới chứng khoán Phái sinh</b> giúp Quý khách giao dịch hiệu quả trên thị trường Phái sinh.</p>
+<p>Đăng ký dịch vụ Môi giới chứng khoán Phái sinh, Quý khách sẽ được:</p>
+<ul>
+	<li><b>Tư vấn các sản phẩm dịch vụ giao dịch chứng khoán phái sinh tại VNDIRECT;</b></li>
+	<li><b>Phân tích, tư vấn về thị trường chứng khoán cơ sở và các mã chủ chốt ảnh hướng đến chỉ số VN30 để Quý khách có thể đưa đến quyết định đầu tư cho phù hợp;</b></li>
+	<li><b>Hỗ trợ giao dịch mở/đóng vị thế và các giao dịch liên quan đến ký quỹ, chuyển tiền theo yêu cầu của Quý khách;</b></li>
+	<li><b>Các loại báo cáo thông tin về tài khoản, trạng thái giao dịch...</b></li>
+</ul>
+<p>Điều đặc biệt khi đăng ký dịch vụ, Quý khách sẽ không mất thêm bất cứ loại phí nào. Phí giao dịch chứng khoán phái sinh hiện hành của VNDIRECT là:</p>
+<ul>
+	<li>Phí mở/đóng/đáo hạn hợp đồng: 20,000 đồng/ giao dịch/hợp đồng</li>
+	<li>Phí cho giao dịch đối ứng trong ngày: 10,000 đồng/giao dịch/hợp đồng</li>
+</ul>
+<p><i><b>(*) Phí giao dịch được áp dụng theo quy định chung của VNDIRECT từng thời kỳ.</b></i></p>
+<p>Quý khách muốn đăng ký ngay dịch vụ <b style="color: rgb(196, 89, 17);">Môi giới chứng khoán Phái sinh</b> để Môi giới <b>@brokerName</b> tiếp tục chăm sóc tài khoản chứng khoán Phái sinh hay không?</p>
+<div style="width: 100%; text-align: center;">
+	<a href="https://customer-profile.vndirect.com.vn/service/register/confirm?promotionId=@promotionId&customerId=@customerId&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&referrer=@brokerId" class="btn1">ĐỒNG Ý</a>
+	<a href="@serviceUrl" class="btn2">TÌM HIỂU THÊM</a>
 </div>
+<br/>
+<br/>
+<p>Nếu Quý khách có thắc mắc hoặc cần thêm thông tin, vui lòng liệc lạc với nhân viên Môi giới, gọi đến tổng đài 1900 545409 để được hỗ trợ nhanh.</p>
+<p>Rất mong nhận được phản hồi từ Quý khách!</p>
+<p>
+	Kính chúc Quý khách sức khoẻ và đầu tư hiệu quả!<br/>
+	<b>Trân trọng,</b>
+</p>
+<br/>
+<p><b>TRUNG TÂM DỊCH VỤ KHÁCH HÀNG - CÔNG TY CỔ PHẦN CHỨNG KHOÁN VNDIRECT</b></p>
+<p>Trụ sở chính: Số 1 Nguyễn Thượng Hiền - Hai Bà Trưng - Hà Nộ</p>
+<p>Chi nhánh Hồ Chí Minh: Tòa nhà THE 90th PASTEUR, số 90 Pasteur, Q.1, Thành phố Hồ Chí Minh</p>
+<p>Tổng đài: 1900545409 | Email: <a href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a> | Website: <a href="https://www.vndirect.com.vn" target="_blank">https://www.vndirect.com.vn</a></p>
 </body>
-</html>
-
+<html>
