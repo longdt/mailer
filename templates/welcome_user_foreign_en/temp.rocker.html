@@ -11,7 +11,7 @@
 <div style="width:600px">
 	<table border="0" width="100%" cellspacing="1" cellpadding="0" id="table1" style="line-height: 25px; text-align: justify;">
 		<tr>
-			<td>Dear Mr/Ms. @full_name,</td>
+			<td>Dear @full_name,</td>
 		</tr>
 		<tr><td>&nbsp; </td></tr>
 		<tr><td>Welcome to @wl_name.</td></tr>
@@ -20,16 +20,20 @@
         <tr><td>Account Number: <strong>@account_number</strong></td></tr>
 		<tr><td>Password: Please view in the previous email</td></tr>
 
-		<tr>
-			<td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">Notice: For security reasons, you must change your password after login in the first time. To change your password, click link:</font>
-				<div style="text-align: center;"><a style="font-weight: bold;" href='@change_pass_url'>CHANGE YOUR PASSWORD</a></div>
-			</td>
-		</tr>
-		<tr><td>Follow the instruction to change your password as below:</td></tr>
-		<tr><td style="width: 100%">
-			<div style="width: 50%; float: left"><img width= "95%" height="180px" src="cid:anh2.jpg"></div>
-			<div style="width: 50%; float: left"><img width= "95%" height="180px" src="cid:anh1.jpg"></div>
-		</td></tr>
+		@if (!change_pass_url.isEmpty()){
+			<tr>
+				<td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">Notice: For security reasons, you must change your password after login in the first time. To change your password, click link:</font>
+					<div style="text-align: center;"><a style="font-weight: bold;" href='@change_pass_url'>CHANGE YOUR PASSWORD</a></div>
+				</td>
+			</tr>
+			<tr><td>Follow the instruction to change your password as below:</td></tr>
+			<tr>
+				<td style="width: 100%">
+					<div style="width: 50%; float: left"><img width= "95%" height="180px" src="cid:anh2.jpg"></div>
+					<div style="width: 50%; float: left"><img width= "95%" height="180px" src="cid:anh1.jpg"></div>
+				</td>
+			</tr>
+		}
 		<tr>
 			<td>&nbsp;  </td>
 			<td> </td>
@@ -37,10 +41,18 @@
 		<tr>
 			<td style="font-family:Arial; font-size: 13px;line-height: 15px;">
 				<p style="font-style: italic;">Best Regards,</p>
-				<strong>@full_company_name</strong><br/>
-				Address: @wl_address<br/>
-				Contact number: @wl_contact_number<br/>
-				Website : <a style="color: #f8941d; text-decoration: none;" href="@wl_website_url">@wl_website_url</a>
+				@if (!full_company_name.isEmpty()){
+					<strong>@full_company_name</strong><br/>
+				}
+				@if (!wl_address.isEmpty()){
+					Address: @wl_address<br/>
+				}
+				@if (!wl_contact_number.isEmpty()){
+					Contact number: @wl_contact_number<br/>
+				}
+				@if (!wl_website_url.isEmpty()){
+					Website : <a style="color: #f8941d; text-decoration: none;" href="@wl_website_url">@wl_website_url</a>
+				}
 			</td>
 		</tr>
 	</table>
