@@ -1,0 +1,39 @@
+@args (String promotionToken, String promotionExp, String customerId, String accountNos, String fullname, String brokerId, String brokerName, Integer serviceId, String serviceName, String serviceUrl, String serviceTermsUrl, String serviceRequireAccountType)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+	</style>
+</head>
+<body>
+<div style="width:900px">
+	<h4>Kính chào Quý khách: @fullname,</h4>
+	<br>
+
+	<b>Công ty Cổ phần Chứng khoán VNDIRECT (VNDS)</b> xin chân thành thông báo anh/chị được khuyến nghị sử  dụng sản phẩm/ dịch vụ @serviceName bởi người chăm sóc @brokerName. Tài khoản phái sinh của quý khách sẽ đc môi giới @brokerName chăm sóc
+	<br>
+	<br>
+	Nếu Anh chị có nhu cầu đăng ký sản phẩm xin vui lòng click vào Link để hoàn tất xác thực đăng kí.
+	<br>
+	<br>
+	<a href="https://customer-profile.vndirect.com.vn/service/register/confirm?secretKey=@promotionToken&customerId=@customerId&accountNos=@accountNos&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@?serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId">Đăng kí</a>
+	hoặc bấm vào đây để
+	<a href="@(serviceUrl.contains("?") ? serviceUrl + "&" : serviceUrl + "?")utm_source=promote-request&utm_medium=email&utm_campaign=@brokerId&utm_content=@serviceId">tìm hiểu thêm</a>
+	<br>
+	<p>Lưu ý:
+
+		Link xác nhận chỉ có hiệu lực 1 lần và được sinh tự động bảo mật riêng với Quý khách.
+		Link xác nhận trong email này có hiệu lực đến @promotionExp</p>
+	<p style="text-align: left;">
+		Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b>1900 54 54
+		09 </b> hoặc gửi email tới địa chỉ <a target="_blank"
+											  href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
+	</p>
+	<br>
+	Công ty Cổ phần Chứng khoán VNDIRECT (VNDS) xin chân thành cảm ơn Quý Khách đã tin tưởng sử dụng dịch vụ của Chúng tôi trong thời gian qua.
+</div>
+</body>
+</html>
+
