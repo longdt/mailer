@@ -3,47 +3,78 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<style>
-	</style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <style>
+    </style>
 </head>
 <body>
 <div style="width:600px">
-	<table border="0" width="100%" cellspacing="1" cellpadding="0" id="table1" style="line-height: 25px; text-align: justify;">
-		<tr>
-			<td>Dear @full_name,</td>
-		</tr>
-		<tr><td>&nbsp; </td></tr>
-		<tr><td>Chào mừng quý khách đến với @wl_name.</td></tr>
-		<tr><td>Chúng tôi xin cảm ơn quý khách đã mở tài khoản tại @wl_name. Tài khoản giao dịch @wl_name của quý khách đã được mở thành công. Thông tin giao dịch của quý khách như sau:</td></tr>
-        <tr><td>Tên TK: <strong>@username</strong></td></tr>
-        <tr><td>Số tài khoản: <strong>@account_number</strong></td></tr>
-		<tr><td>Mật khẩu: Xin hãy kiểm tra thư xác nhận</td></tr>
-
-		<tr>
-			<td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">Chú ý: Vì lý do bảo mật, quý khách cần thay đổi mật khẩu sau lần đăng nhập đầu tiên. Để thay đổi mật khẩu, xin quý khách truy cập đường link sau:</font>
-				<div style="text-align: center;"><a style="font-weight: bold;" href='@change_pass_url'>THAY ĐỔI MẬT KHẨU</a></div>
-			</td>
-		</tr>
-		<tr><td>Vui lòng làm theo hướng dẫn sau để thay đổi mật khẩu:</td></tr>
-		<tr><td style="width: 100%">
-			<div style="width: 50%; float: left"><img width= "95%" height="180px" src="cid:anh2.jpg"></div>
-			<div style="width: 50%; float: left"><img width= "95%" height="180px" src="cid:anh1.jpg"></div>
-		</td></tr>
-		<tr>
-			<td>&nbsp;  </td>
-			<td> </td>
-		</tr>
-		<tr>
-			<td style="font-family:Arial; font-size: 13px;line-height: 15px;">
-				<p style="font-style: italic;">Best Regards,</p>
-				<strong>@full_company_name</strong><br/>
-				Address: @wl_address<br/>
-				Contact number: @wl_contact_number<br/>
-				Website : <a style="color: #f8941d; text-decoration: none;" href="@wl_website_url">@wl_website_url</a>
-			</td>
-		</tr>
-	</table>
+    <table border="0" width="100%" cellspacing="1" cellpadding="0" id="table1"
+           style="line-height: 25px; text-align: justify;">
+        <tr>
+            <td>Dear @full_name,</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Chào mừng quý khách đến với @wl_name.</td>
+        </tr>
+        <tr>
+            <td>Chúng tôi xin cảm ơn quý khách đã mở tài khoản tại @wl_name. Tài khoản giao dịch @wl_name của quý khách
+                đã được mở thành công. Thông tin giao dịch của quý khách như sau:
+            </td>
+        </tr>
+        <tr>
+            <td>Tên TK: <strong>@username</strong></td>
+        </tr>
+        <tr>
+            <td>Số tài khoản: <strong>@account_number</strong></td>
+        </tr>
+        <tr>
+            <td>Mật khẩu: Xin hãy kiểm tra thư xác nhận</td>
+        </tr>
+        @if (!change_pass_url.isEmpty()){
+            <tr>
+                <td colspan="2"><font size="2" face="Arial, Helvetica, sans-serif">Chú ý: Vì lý do bảo mật, quý khách cần
+                    thay đổi mật khẩu sau lần đăng nhập đầu tiên. Để thay đổi mật khẩu, xin quý khách truy cập đường link
+                    sau:</font>
+                    <div style="text-align: center;"><a style="font-weight: bold;" href='@change_pass_url'>THAY ĐỔI MẬT
+                        KHẨU</a></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Vui lòng làm theo hướng dẫn sau để thay đổi mật khẩu:</td>
+            </tr>
+            <tr>
+                <td style="width: 100%">
+                    <div style="width: 50%; float: left"><img width="95%" height="180px" src="cid:anh2.jpg"></div>
+                    <div style="width: 50%; float: left"><img width="95%" height="180px" src="cid:anh1.jpg"></div>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>&nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td style="font-family:Arial; font-size: 13px;line-height: 15px;">
+                <p style="font-style: italic;">Best Regards,</p>
+                @if (!full_company_name.isEmpty()){
+                <strong>@full_company_name</strong><br/>
+                }
+                @if (!wl_address.isEmpty()){
+                Address: @wl_address<br/>
+                }
+                @if (!wl_contact_number.isEmpty()){
+                Contact number: @wl_contact_number<br/>
+                }
+                @if (!wl_website_url.isEmpty()){
+                Website : <a style="color: #f8941d; text-decoration: none;" href="@wl_website_url">@wl_website_url</a>
+                }
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
