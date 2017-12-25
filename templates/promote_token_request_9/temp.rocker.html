@@ -9,30 +9,29 @@
 </head>
 <body>
 <div style="width:900px">
-	<h4>Kính chào Quý khách: @fullname,</h4>
-	<br>
+	<p>Kính chào Quý khách <b>@fullname</b>,</p>
+	<p>Công ty Cổ phần chứng khoán VNDIRECT cảm ơn Quý khách đã đăng ký dịch vụ <strong>@serviceName</strong> cho tài khoản <b>@accountNos</b> do môi giới <b>@brokerName</b> chăm sóc.</p>
 
-	<b>Công ty Cổ phần Chứng khoán VNDIRECT (VNDS)</b> xin chân thành thông báo anh/chị được khuyến nghị sử  dụng sản phẩm/ dịch vụ @serviceName bởi người chăm sóc @brokerName. Tài khoản phái sinh của quý khách sẽ đc môi giới @brokerName chăm sóc
-	<br>
-	<br>
-	Nếu Anh chị có nhu cầu đăng ký sản phẩm xin vui lòng click vào Link để hoàn tất xác thực đăng kí.
-	<br>
-	<br>
-	<a href="https://customer-profile.vndirect.com.vn/service/register/confirm/otp?secretKey=@promotionToken&customerId=@customerId&accountNos=@accountNos&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@?serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId">Đăng kí</a>
-	hoặc bấm vào đây để
-	<a href="@(serviceUrl.contains("?") ? serviceUrl + "&" : serviceUrl + "?")utm_source=promote-request&utm_medium=email&utm_campaign=@brokerId&utm_content=@serviceId">tìm hiểu thêm</a>
-	<br>
-	<p>Lưu ý:
-
+	<p>Vui lòng bấm vào link dưới đây để tiếp tục quá trình xác nhận đăng ký dịch vụ.
+		<a href="https://customer-profile.vndirect.com.vn/service/register/confirm/otp?secretKey=@promotionToken&customerId=@customerId&accountNos=@accountNos&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@?serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId">Đăng kí</a>
+		hoặc bấm vào đây để
+		<a href="@(serviceUrl.contains("?") ? serviceUrl + "&" : serviceUrl + "?")utm_source=promote-request&utm_medium=email&utm_campaign=@brokerId&utm_content=@serviceId">tìm hiểu thêm</a>
+	</p>
+	<p>Việc xác nhận này là cần thiết giúp Quý khách hoàn tất đăng ký dịch vụ <strong>@serviceName</strong>.</p>
+	<p><strong>Lưu ý:</strong>
+		<ul>
+	<li>
 		Link xác nhận chỉ có hiệu lực 1 lần và được sinh tự động bảo mật riêng với Quý khách.
-		Link xác nhận trong email này có hiệu lực đến @promotionExp</p>
+	</li>
+	<li>
+		Link xác nhận trong email này có hiệu lực đến <strong>@(promotionExp.substring(11, 16))</strong> ngày <strong>@(promotionExp.substring(0, 10))</strong>.
+	</li>
+    </ul>
 	<p style="text-align: left;">
 		Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b>1900 54 54
 		09 </b> hoặc gửi email tới địa chỉ <a target="_blank"
 											  href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
 	</p>
-	<br>
-	Công ty Cổ phần Chứng khoán VNDIRECT (VNDS) xin chân thành cảm ơn Quý Khách đã tin tưởng sử dụng dịch vụ của Chúng tôi trong thời gian qua.
 </div>
 </body>
 </html>
