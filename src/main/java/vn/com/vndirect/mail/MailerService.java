@@ -98,7 +98,7 @@ public class MailerService {
             try {
                 pool.shutdown();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }));
         return pool;
