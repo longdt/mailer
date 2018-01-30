@@ -101,7 +101,7 @@
     <table style="margin: 0 auto">
         <tr>
             <td>
-                <a class="btn1" href="https://customer-profile.vndirect.com.vn/service/register/confirm/otp?secretKey=@promotionToken&customerId=@customerId&customerName=@(java.net.URLEncoder.encode(fullname, "UTF-8"))&accountNos=@accountNos&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@?serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId&referrerName=@(java.net.URLEncoder.encode(brokerName, "UTF-8"))">ĐỒNG Ý</a>
+                <a class="btn1" href="https://customer-profile.vndirect.com.vn/service/register/confirm/token?secretKey=@promotionToken&customerId=@customerId&customerName=@(java.net.URLEncoder.encode(fullname, "UTF-8"))&accountNos=@accountNos&serviceId=@serviceId&serviceName=@(java.net.URLEncoder.encode(serviceName, "UTF-8"))&serviceUrl=@serviceUrl&serviceTermsUrl=@?serviceTermsUrl&serviceRequireAccountType=@serviceRequireAccountType&referrer=@brokerId&referrerName=@(java.net.URLEncoder.encode(brokerName, "UTF-8"))">ĐỒNG Ý</a>
             </td>
             <td>
                 <a class="btn2" href="@(serviceUrl.contains(" ?") ? serviceUrl + "&" : serviceUrl + "?")utm_source=promote-request&utm_medium=email&utm_campaign=@brokerId&utm_content=@serviceId">TÌM HIỂU THÊM</a>
