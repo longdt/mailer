@@ -23,10 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * Created by naruto on 6/7/17.
- */
-public class MailReqHandler implements ReqHandler {
+public class WLMailRequestHandler implements ReqHandler {
     static final Path templatesDir = Paths.get("templates");
     static final String templateFile = "temp.rocker.html";
     private static final Logger logger = LoggerFactory.getLogger(MailReqHandler.class);
@@ -36,7 +33,7 @@ public class MailReqHandler implements ReqHandler {
     private Address fromAddress;
     private ObjectPool<Transport> pool;
 
-    public MailReqHandler(Properties conf, Session session, ObjectPool<Transport> pool) throws AddressException {
+    public WLMailRequestHandler(Properties conf, Session session, ObjectPool<Transport> pool) throws AddressException {
         user = conf.getProperty(MailerService.MAIL_USER);
         password = conf.getProperty(MailerService.MAIL_PWD);
         this.session = session;
@@ -63,6 +60,8 @@ public class MailReqHandler implements ReqHandler {
         String cc = (String) data.get("cc");
         String bc = (String) data.get("bc");
         Map<String, Object> tempFields = (Map<String, Object>) data.get("tempfields");
+        Map<String, String> attachFiles = (Map<String, String>) data.get("attachFiles");
+
         try {
             BindableRockerModel emailTemp = Rocker.template(template + "/" + templateFile);
             if (tempFields != null) {
@@ -76,7 +75,7 @@ public class MailReqHandler implements ReqHandler {
             }
             String content = emailTemp.render().toString();
 
-            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template, null), (result, error) -> {
+            Jobs.execute(new MailSender(session, pool, user, password, fromAddress, to, cc, bc, subject, content, template, attachFiles), (result, error) -> {
                 if (error == null) {
                     logger.info("send success '{}' to {}", subject, to);
                 } else if (error instanceof AddressException || (error instanceof SendFailedException && !U.isEmpty(((SendFailedException) error).getInvalidAddresses()))) {

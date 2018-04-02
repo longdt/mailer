@@ -124,5 +124,6 @@ public class MailerService {
         int port = ConfigUtils.getInt(conf, MAILER_PORT, 9999);
         On.address(host).port(port);
         On.post("/").json(mailReqHandler);
+        On.post("/wlMail").json(new WLMailRequestHandler(conf, session, pool));
     }
 }
