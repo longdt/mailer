@@ -6,7 +6,7 @@
 
     <groupId>vn.com.vndirect</groupId>
     <artifactId>mailer</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.9</version>
     <build>
         <plugins>
             <plugin>
