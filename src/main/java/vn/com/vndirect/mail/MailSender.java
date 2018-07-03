@@ -15,10 +15,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 
 /**
@@ -38,8 +43,9 @@ public class MailSender implements Callable<Void> {
     private String subject;
     private String htmlContent;
     private String imgPath;
+    private Map<String, String> attachFiles;
 
-    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String ccAddress, String bcAddress, String subject, String htmlContent, String imgPath) {
+    public MailSender(Session session, ObjectPool<Transport> pool, String user, String password, Address fromAddress, String toAddress, String ccAddress, String bcAddress, String subject, String htmlContent, String imgPath, Map<String, String> attachFiles) {
         this.session = session;
         this.pool = pool;
         this.user = user;
@@ -51,6 +57,7 @@ public class MailSender implements Callable<Void> {
         this.subject = subject;
         this.htmlContent = htmlContent;
         this.imgPath = imgPath;
+        this.attachFiles = attachFiles == null ? new HashMap<>() : attachFiles;
     }
 
     Message buildMessage() throws MessagingException, IOException {
@@ -83,13 +90,26 @@ public class MailSender implements Callable<Void> {
         )) {
             for (Path p : stream) {
                 MimeBodyPart imagePart = new MimeBodyPart();
+
                 DataSource fds = new FileDataSource(p.toString());
                 imagePart.setDataHandler(new DataHandler(fds));
                 imagePart.setHeader("Content-ID", "<" + p.getFileName().toString() + ">");
-//                    imagePart.setDisposition(Part.INLINE);
                 content.addBodyPart(imagePart);
             }
         }
+
+        attachFiles.forEach((fileName, payload) -> {
+            try {
+                MimeBodyPart att = new MimeBodyPart();
+                ByteArrayDataSource bds = new ByteArrayDataSource(new ByteArrayInputStream(Base64.getDecoder().decode(payload)), "application/pdf");
+                att.setDataHandler(new DataHandler(bds));
+                att.setFileName(fileName+".pdf");
+                content.addBodyPart(att);
+            } catch (Exception ex) {
+                logger.error(ex.getMessage(), ex);
+            }
+        });
+
         // put everything together
         message.setContent(content);
         return message;
