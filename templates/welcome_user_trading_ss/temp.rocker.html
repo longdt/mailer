@@ -1,0 +1,67 @@
+@args (String contract_number, String custody_number, String full_name, String username, String mobile_phone, String password)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <style>
+        #aotp {
+            background-color: #f39000;
+            font-size: 14px;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            margin: 5px;
+            display: inline-block;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<div
+        style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px">
+    <p>Kính chào Quý khách hàng <b>@?full_name</b>!</p>
+
+    <p>Cảm ơn Quý khách đã mở tài khoản tại công ty <b>VNDIRECT</b>. Thông tin tài khoản giao dịch trực tuyến của quý khách như
+        sau:</p>
+
+    <ul style="list-style: None; padding: 10px;">
+        <li style="margin: 0;">1. Số tài khoản: <b>@contract_number</b></li>
+        <li style="margin: 0;">2. Số lưu ký: <b>@custody_number</b></li>
+        <li style="margin: 0;">3. Tên chủ tài khoản: <b>@full_name</b></li>
+        <li style="margin: 0;">4. Số điện thoại: <b>@mobile_phone</b></li>
+        @if (!username.isEmpty()) {
+        <li style="margin: 0;">5. Tên đăng nhập: <b>@?username</b>.
+        <li style="margin: 0;">6. Mật khẩu: <b>@?password</b>.
+            Quý khách có thể đổi mật khẩu
+            <a href="https://trade-hn.vndirect.com.vn/doi-mat-khau?utm_source=open-account&utm_medium=email&utm_content=@username"
+               target="_blank"><b>tại đây</b></a></li>
+        }
+    </ul>
+
+    <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến Quý khách cần đăng ký xác thực
+        tài khoản bằng mã <b>OTP</b> trên <strong>VNDIRECT Mobile App</strong> hoặc gửi qua <b>SMS</b> theo hướng dẫn:
+    </p>
+    <a id="aotp"
+       href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
+       target="_blank"><b>CÀI ĐẶT TẦNG BẢO MẬT SỐ 2</b></a>
+
+    <p style="text-align: left;">
+        Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b style="display: inline-block;">1900 54 54 09</b>
+        hoặc gửi email tới địa chỉ <a target="_blank"
+                                      href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
+    </p>
+    <div style="margin: 20px 0px; font-size: 13px; padding: 0; font-style: italic; margin: 0">
+        <div>Trân trọng,</div>
+        <div>Công ty Cổ phần Chứng Khoán VNDIRECT</div>
+        <div>Số 1 Nguyễn Thượng Hiền, Quận Hai Bà Trưng, Hà Nội</div>
+        <div>Tele : (84 024) 39410622</div>
+        <div>Fax : (84 024) 39724600</div>
+        <div>Hotline : 1900-54 54-09</div>
+        <div>
+            Website : <a href="https://www.vndirect.com.vn" target="_blank">https://www.vndirect.com.vn</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
