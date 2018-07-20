@@ -1,0 +1,36 @@
+Configuration:
+  status: warn
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%d{yyyy/MM/dd HH:mm:ss.SSS} %-5level - [%t] %c{1} - %m%n"
+    RollingRandomAccessFile:
+      -
+        name: INFO
+        fileName: ./log/mailer-info.log
+        filePattern: "./log/zip/$${date:yyyy-MM}/%d{yyyy-MM-dd}_mailer-%i.log.gz"
+        PatternLayout:
+          pattern: "%d{yyyy/MM/dd HH:mm:ss.SSS} %-5level - %c{1} - %m%n"
+        Policies:
+          TimeBasedTriggeringPolicy: {}
+          OnStartupTriggeringPolicy: {}
+          SizeBasedTriggeringPolicy:
+            size: 200 MB
+      -
+        name: ERROR
+        fileName: ./log/mailer-error.log
+        filePattern: "./log/zip/$${date:yyyy-MM}/%d{yyyy-MM-dd}_mailer-error-%i.log.gz"
+        PatternLayout:
+          pattern: "%d{yyyy/MM/dd HH:mm:ss.SSS} %-5level - [%t] %c - %M:%L | %m%n"
+        Policies:
+          TimeBasedTriggeringPolicy: {}
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ERROR
+          level: error
+        - ref: INFO
