@@ -1,10 +1,10 @@
-@args (String contract_number, String custody_number, String full_name, String username, String mobile_phone, String password)
+@args (String active_url,String denied_url,String email,String full_name,String id_date,String id_number,String id_place,String mobile_phone)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <style>
-        #aotp {
+        #emailActive {
             background-color: #f39000;
             font-size: 14px;
             color: #ffffff;
@@ -46,23 +46,16 @@
 <div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
 margin-right:5%;margin-top: 2%">
     <p>Kính chào Quý khách <b>@?full_name</b>!</p>
-    <p>Cảm ơn Quý khách đã mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b></p>
-    <p>Thông tin tài khoản giao dịch của quý khách như sau:</p>
-    @if (!username.isEmpty()) {
-    <div>Tên đăng nhập: <b>@?username</b>.</div>
-    <div>Mật khẩu: <b>@?password</b>.</div>
-    }
-    <div>Số tài khoản: <b>@contract_number</b></div>
-    <div>Số lưu ký: <b>@custody_number</b></div>
-    <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến
-        Quý khách cần đăng ký xác thực tài khoản bằng mã OTP trên
-        VNDIRECT Mobile App hoặc gửi SMS theo hướng dẫn</p>
-    <a id="aotp" style="margin-left: 28%"
-       href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
-       target="_blank"><b>CÀI ĐẶT TẦNG BẢO MẬT SỐ 2</b></a>
+    <p>Cảm ơn Quý khách đã đăng  mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b></p>
+    <p>Để xác nhận mở tài khoản chứng khoán <b style="color: orange">VNDIRECT</b>,
+        vui lòng nhấn vào "Kích hoạt" tài khoản dưới đây: </p>
 
+    <a id="emailActive" style="margin-left: 40%;"
+       href="@active_url" target="_blank"><b>Kích Hoạt</b></a>
+
+    <p>Nếu không phải là bạn, xin vui lòng bỏ qua tin nhắn này</p>
     <p style="text-align: left;margin-top: 2%">
-        Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b style="display: inline-block;color: orange">1900 54 54
+        Liên hệ:<b style="display: inline-block;color: orange">&ensp;1900 54 54
         09</b>
         hoặc gửi email tới địa chỉ <a target="_blank" style="color: orange;"
                                       href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
