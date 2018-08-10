@@ -45,9 +45,9 @@
 </div>
 <div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
 margin-right:5%;margin-top: 2%">
-    <p>Kính chào Quý khách <b>@?full_name</b>!</p>
-    <p>Cảm ơn Quý khách đã mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b></p>
-    <p>Thông tin tài khoản giao dịch của quý khách như sau:</p>
+    <p>Kính chào Quý khách <b>@?full_name</b>,</p>
+    <p>Cảm ơn Quý khách đã mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b>.
+        Thông tin tài khoản của Quý khách như sau:</p>
     @if (!username.isEmpty()) {
     <div>Tên đăng nhập: <b>@?username</b>.</div>
     <div>Mật khẩu: <b>@?password</b>.</div>
@@ -55,8 +55,10 @@ margin-right:5%;margin-top: 2%">
     <div>Số tài khoản: <b>@contract_number</b></div>
     <div>Số lưu ký: <b>@custody_number</b></div>
     <p>
-        Quý khách vui lòng hoàn thiện hợp đồng với <b style="color: orange;">VNDIRECT</b> trước khi thực hiện giao dịch
-        rút tiền từ tài khoản:
+        Quý khách vui lòng hoàn thiện hợp đồng và gửi đến <a href="https://www.vndirect.com.vn/mang-luoi-chi-nhanh/"
+                                                             style="color: orange;font-style: italic">chi nhánh gần
+        nhất</a>
+        <span> trước khi thực hiện giao dịch:</span>
     </p>
     <ul style="padding-left: 20%;list-style: none;">
         <li style="list-style-type: decimal">Hợp đồng mở tài khoản: <b>2 bản</b> (<a href=""
@@ -65,12 +67,8 @@ margin-right:5%;margin-top: 2%">
         </li>
         <li style="list-style-type: decimal;">CMND / Thẻ căn cước: <b>1 bản photo</b></li>
     </ul>
-    <p>Quý khách gửi hồ sơ đến chi nhánh gần nhất <a href="https://www.vndirect.com.vn/mang-luoi-chi-nhanh/"
-                                                     style="color: orange;font-style: italic">Xem chi nhánh gần nhất</a>
-    </p>
-    <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến
-        Quý khách cần đăng ký xác thực tài khoản bằng mã OTP trên
-        VNDIRECT Mobile App hoặc gửi SMS theo hướng dẫn</p>
+    <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến, Quý khách cần đăng ký xác thực tài khoản bằng mã OTP trên
+        VNDIRECT Mobile App hoặc gửi SMS theo hướng dẫn.</p>
     <a id="aotp" style="margin-left: 28%"
        href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
        target="_blank"><b>CÀI ĐẶT TẦNG BẢO MẬT SỐ 2</b></a>
@@ -97,7 +95,7 @@ margin-right:5%;margin-top: 2%">
                                   style="width: 20px;height: 20px;"/> <b
                 class="text-link">&ensp;Hướng dẫn nộp tiền và giao dịch</b></a></td>
         <td style="float: left;width: 25%;"><a href="https://trade-hn.vndirect.com.vn/" target="_blank" class="link">
-            <img src="cid:ProTrade.jpg" class="image-link"  style="width: 20px;height: 20px"/> <b
+            <img src="cid:ProTrade.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
                 class="text-link">&ensp;Bảng giá Lightning</b></a></td>
         <td style="padding-right: 5%;float: right"><a href="https://stockbook.vn/" target="_blank" class="link"
                                                       style="float:right;padding-right: 10px">
