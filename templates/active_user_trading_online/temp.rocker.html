@@ -1,12 +1,12 @@
-@args (String active_url,String denied_url,String email,String full_name,String id_date,String id_number,String id_place,String mobile_phone)
+@args (String otp,String email,String full_name,String id_date,String id_number,String id_place,String mobile_phone)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <style>
-        #emailActive {
+        #otp {
             background-color: #f39000;
-            font-size: 14px;
+            font-size: 33px;
             color: #ffffff;
             padding: 10px 20px;
             border-radius: 10px;
@@ -47,11 +47,10 @@
 margin-right:5%;margin-top: 2%">
     <p>Kính chào Quý khách <b>@?full_name</b>!</p>
     <p>Cảm ơn Quý khách đã đăng kí mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b></p>
-    <p>Để xác nhận mở tài khoản chứng khoán <b style="color: orange">VNDIRECT</b>,
-        vui lòng nhấn vào "Kích hoạt" tài khoản dưới đây: </p>
+    <p>Mã xác nhận của Quý khách là: </p>
 
-    <a id="emailActive" style="margin-left: 40%;"
-       href="@active_url" target="_blank"><b>Kích Hoạt</b></a>
+    <p id="otp" style="margin-left: 40%;"
+       href="#" target="_blank"><b>@otp</b></p>
 
     <p>Nếu không phải là bạn, xin vui lòng bỏ qua tin nhắn này</p>
     <p style="text-align: left;margin-top: 2%">
