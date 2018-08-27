@@ -1,12 +1,12 @@
-@args (String otp,String email,String full_name,String id_date,String id_number,String id_place,String mobile_phone)
+@args (String contract_number, String custody_number, String full_name, String username, String mobile_phone, String password)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <style>
-        #otp {
+        #aotp {
             background-color: #f39000;
-            font-size: 33px;
+            font-size: 14px;
             color: #ffffff;
             padding: 10px 20px;
             border-radius: 10px;
@@ -45,25 +45,32 @@
 </div>
 <div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
 margin-right:5%;margin-top: 2%">
-    <p>Kính chào Quý khách <b>@?full_name</b>!</p>
-    <p>Cảm ơn Quý khách đã đăng kí mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b></p>
-    <p>Mã xác nhận của Quý khách là: </p>
+    <p>Welcome <b>@?full_name</b>,</p>
+    <p>Thank you for creating your trading account at <b style="color: orange">VNDIRECT</b>.
+        Your account information is as follows:</p>
+    @if (!username.isEmpty()) {
+    <div>Username: <b>@?username</b></div>
+    <div>Password: <b>@?password</b></div>
+    }
+    <div>Account No: <b>@contract_number</b></div>
+    <div>Custody Id: <b>@custody_number</b></div>
+    <p>For the purpose of protecting online transactions, please register your account with OTP code on VNDIRECT Mobile App
+        or send SMS as instructed.</p>
+    <a id="aotp" style="margin-left: 28%"
+       href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
+       target="_blank"><b>The level 2 of authentication</b></a>
 
-    <p id="otp" style="margin-left: 40%;"
-       href="#" target="_blank"><b>@otp</b></p>
-
-    <p>Nếu không phải là bạn, xin vui lòng bỏ qua tin nhắn này</p>
     <p style="text-align: left;margin-top: 2%">
-        Liên hệ:<b style="display: inline-block;color: orange">&ensp;1900 54 54
+        If you need assistance, please contact the operator <b style="display: inline-block;color: orange">1900 54 54
         09</b>
-        hoặc gửi email tới địa chỉ <a target="_blank" style="color: orange;"
+        or email to <a target="_blank" style="color: orange;"
                                       href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
     </p>
     <div>
-        <p>Trân trọng,<br/>
-            Công ty Cổ phần Chứng Khoán VNDIRECT<br/>
-            Trụ sở chính: Số 1 Nguyễn Thượng Hiền, Hai Bà Trưng, Hà Nội<br/>
-            Điện thoại: 0243.9724568 &emsp;Fax: 0243.9724600</p>
+        <p>Best regards,<br/>
+            VNDIRECT Securities Joint Stock Company<br/>
+            Head office: 1 Nguyen Thuong Hien, Hai Ba Trung, Hanoi<br/>
+            Phone: 0243.9724568 Fax: 0243.9724600</p>
     </div>
 
 </div>
@@ -73,10 +80,10 @@ margin-right:5%;margin-top: 2%">
                 href="https://www.vndirect.com.vn/cmsupload/HDGD-2017.21.11.pdf?" target="_blank"
                 class="link"><img src="cid:chalkboard-teacher-solid.jpg" class="image-link"
                                   style="width: 20px;height: 20px;"/> <b
-                class="text-link">&ensp;Hướng dẫn nộp tiền và giao dịch</b></a></td>
+                class="text-link">&ensp;Transaction and payment guide</b></a></td>
         <td style="float: left;width: 25%;"><a href="https://trade-hn.vndirect.com.vn/" target="_blank" class="link">
             <img src="cid:ProTrade.jpg" class="image-link"  style="width: 20px;height: 20px"/> <b
-                class="text-link">&ensp;Bảng giá Lightning</b></a></td>
+                class="text-link">&ensp;Lightning Watchlist</b></a></td>
         <td style="padding-right: 5%;float: right"><a href="https://stockbook.vn/" target="_blank" class="link"
                                                       style="float:right;padding-right: 10px">
             <img src="cid:Stockbook.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
