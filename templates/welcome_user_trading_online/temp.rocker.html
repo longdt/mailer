@@ -1,4 +1,4 @@
-@args (String contract_number, String custody_number, String full_name, String username, String mobile_phone, String password)
+@args (String contract_number, String custody_number, String full_name, String username, String mobile_phone, String password, String isFundAccount)
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -48,12 +48,18 @@ margin-right:5%;margin-top: 2%">
     <p>Kính chào Quý khách <b>@?full_name</b>,</p>
     <p>Cảm ơn Quý khách đã mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b>.
         Thông tin tài khoản của Quý khách như sau:</p>
+    <div>Thông tin giao dịch trực tuyến:</div>
     @if (!username.isEmpty()) {
-    <div>Tên đăng nhập: <b>@?username</b></div>
-    <div>Mật khẩu: <b>@?password</b></div>
+    <ul style="padding-left: 20%;list-style: none;">
+        <li style="list-style-type: decimal">Tên đăng nhập: <b>@?username</b></li>
+        <li style="list-style-type: decimal;">Mật khẩu: <b>@?password</b></li>
+    </ul>
     }
-    <div>Số tài khoản: <b>@contract_number</b></div>
     <div>Số lưu ký: <b>@custody_number</b></div>
+    <div>Số tài khoản chứng khoán cơ sở: <b>@contract_number</b></div>
+    @if (!isFundAccount.isEmpty()) {
+    <div>Số tài khoản chứng chỉ quỹ: <b>@custody_number</b></div>
+    }
     <p>
         Quý khách vui lòng hoàn thiện hợp đồng và gửi đến <a href="https://www.vndirect.com.vn/mang-luoi-chi-nhanh/"
                                                              style="color: orange;font-style: italic">chi nhánh gần
@@ -65,6 +71,11 @@ margin-right:5%;margin-top: 2%">
                                                                                      style="font-style: italic;color: black">xem
             file đính kèm</a>)
         </li>
+        @if (!isFundAccount.isEmpty()) {
+        <li style="list-style-type: decimal;">Hợp đồng tài khoản Chứng chỉ quỹ mở: <b>2 bản</b> (<a href=""
+                                                                                      style="font-style: italic;color: black">xem
+            file đính kèm</a>)</li>
+        }
         <li style="list-style-type: decimal;">CMND / Thẻ căn cước: <b>1 bản photo</b></li>
     </ul>
     <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến, Quý khách cần đăng ký xác thực tài khoản bằng mã OTP trên
