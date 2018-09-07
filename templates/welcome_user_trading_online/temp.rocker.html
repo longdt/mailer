@@ -11,7 +11,7 @@
             padding: 10px 20px;
             border-radius: 10px;
             text-decoration: none;
-            margin: 5px;
+            margin: auto;
             display: inline-block;
         }
 
@@ -39,80 +39,85 @@
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body style="width: 70%;padding-left: 10%;padding-right: 10%">
-<div>
-    <a href="#"><img src="cid:Banner.jpg" style="width: 100%"/></a>
-</div>
-<div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
-margin-right:5%;margin-top: 2%">
-    <p>Kính chào Quý khách <b>@?full_name</b>,</p>
-    <p>Cảm ơn Quý khách đã mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b>.
-        Thông tin tài khoản của Quý khách như sau:</p>
-    <div>Thông tin giao dịch trực tuyến:</div>
-    @if (!username.isEmpty()) {
-    <ul style="padding-left: 20%;list-style: none;">
-        <li style="list-style-type: decimal">Tên đăng nhập: <b>@?username</b></li>
-        <li style="list-style-type: decimal;">Mật khẩu: <b>@?password</b></li>
-    </ul>
-    }
-    <div>Số lưu ký: <b>@custody_number</b></div>
-    <div>Số tài khoản chứng khoán cơ sở: <b>@contract_number</b></div>
-    @if (!isFundAccount.isEmpty()) {
-    <div>Số tài khoản chứng chỉ quỹ: <b>@custody_number</b></div>
-    }
-    <p>
-        Quý khách vui lòng hoàn thiện hợp đồng và gửi đến <a href="https://www.vndirect.com.vn/mang-luoi-chi-nhanh/"
-                                                             style="color: orange;font-style: italic">chi nhánh gần
-        nhất</a>
-        <span> trước khi thực hiện giao dịch:</span>
-    </p>
-    <ul style="padding-left: 20%;list-style: none;">
-        <li style="list-style-type: decimal">Hợp đồng mở tài khoản: <b>2 bản</b> (<a href=""
-                                                                                     style="font-style: italic;color: black">xem
-            file đính kèm</a>)
-        </li>
-        @if (!isFundAccount.isEmpty()) {
-        <li style="list-style-type: decimal;">Hợp đồng tài khoản Chứng chỉ quỹ mở: <b>2 bản</b> (<a href=""
-                                                                                      style="font-style: italic;color: black">xem
-            file đính kèm</a>)</li>
-        }
-        <li style="list-style-type: decimal;">CMND / Thẻ căn cước: <b>1 bản photo</b></li>
-    </ul>
-    <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến, Quý khách cần đăng ký xác thực tài khoản bằng mã OTP trên
-        VNDIRECT Mobile App hoặc gửi SMS theo hướng dẫn.</p>
-    <a id="aotp" style="margin-left: 28%"
-       href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
-       target="_blank"><b>CÀI ĐẶT TẦNG BẢO MẬT SỐ 2</b></a>
-
-    <p style="text-align: left;margin-top: 2%">
-        Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b style="display: inline-block;color: orange">1900 54 54
-        09</b>
-        hoặc gửi email tới địa chỉ <a target="_blank" style="color: orange;"
-                                      href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
-    </p>
+<body style="background-color: #dddddd">
+<div style="width: 70%;height: 90%;margin: auto;background-color: white;">
     <div>
-        <p>Trân trọng,<br/>
-            Công ty Cổ phần Chứng Khoán VNDIRECT<br/>
-            Trụ sở chính: Số 1 Nguyễn Thượng Hiền, Hai Bà Trưng, Hà Nội<br/>
-            Điện thoại: 0243.9724568 &emsp;Fax: 0243.9724600</p>
+        <a href="#"><img src="cid:Banner.jpg" style="width: 100%"/></a>
     </div>
+    <div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
+margin-right:5%;margin-top: 2%">
+        <p>Kính chào Quý khách <b>@?full_name</b>,</p>
+        <p>Cảm ơn Quý khách đã mở tài khoản giao dịch tại <b style="color: orange">VNDIRECT</b>.
+            Thông tin tài khoản của Quý khách như sau:</p>
+        <div>Thông tin giao dịch trực tuyến:</div>
+        @if (!username.isEmpty()) {
+        <ul style="padding-left: 20%;list-style: none;">
+            <li style="list-style-type: decimal">Tên đăng nhập: <b>@?username</b></li>
+            <li style="list-style-type: decimal;">Mật khẩu: <b>@?password</b></li>
+        </ul>
+        }
+        <div>Số lưu ký: <b>@custody_number</b></div>
+        <div>Số tài khoản chứng khoán cơ sở: <b>@contract_number</b></div>
+        @if (!isFundAccount.isEmpty()) {
+        <div>Số tài khoản chứng chỉ quỹ: <b>@custody_number</b></div>
+        }
+        <p>
+            Quý khách vui lòng hoàn thiện hợp đồng và gửi đến <a href="https://www.vndirect.com.vn/mang-luoi-chi-nhanh/"
+                                                                 style="color: orange;font-style: italic">chi nhánh gần
+            nhất</a>
+            <span> trước khi thực hiện giao dịch:</span>
+        </p>
+        <ul style="padding-left: 20%;list-style: none;">
+            <li style="list-style-type: decimal">Hợp đồng mở tài khoản: <b>2 bản</b> (<a href=""
+                                                                                         style="font-style: italic;color: black">xem
+                file đính kèm</a>)
+            </li>
+            @if (!isFundAccount.isEmpty()) {
+            <li style="list-style-type: decimal;">Hợp đồng tài khoản Chứng chỉ quỹ mở: <b>2 bản</b> (<a href=""
+                                                                                                        style="font-style: italic;color: black">xem
+                file đính kèm</a>)
+            </li>
+            }
+            <li style="list-style-type: decimal;">CMND / Thẻ căn cước: <b>1 bản photo</b></li>
+        </ul>
+        <p>Nhằm tăng tính bảo mật cho các giao dịch trực tuyến, Quý khách cần đăng ký xác thực tài khoản bằng mã OTP
+            trên
+            VNDIRECT Mobile App hoặc gửi SMS theo hướng dẫn.</p>
+        <a id="aotp"
+           href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
+           target="_blank"><b>CÀI ĐẶT TẦNG BẢO MẬT SỐ 2</b></a>
 
+        <p style="text-align: left;margin-top: 2%">
+            Nếu cần sự trợ giúp, vui lòng liên hệ với tổng đài <b style="display: inline-block;color: orange">1900 54 54
+            09</b>
+            hoặc gửi email tới địa chỉ <a target="_blank" style="color: orange;"
+                                          href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
+        </p>
+        <div>
+            <p>Trân trọng,<br/>
+                Công ty Cổ phần Chứng Khoán VNDIRECT<br/>
+                Trụ sở chính: Số 1 Nguyễn Thượng Hiền, Hai Bà Trưng, Hà Nội<br/>
+                Điện thoại: 0243.9724568 &emsp;Fax: 0243.9724600</p>
+        </div>
+
+    </div>
+    <table style="background-color: gray;width: 100%;">
+        <tr>
+            <td style="float: left;width: 40%;padding-left: 5%"><a
+                    href="https://www.vndirect.com.vn/cmsupload/HDGD-2017.21.11.pdf?" target="_blank"
+                    class="link"><img src="cid:chalkboard-teacher-solid.jpg" class="image-link"
+                                      style="width: 20px;height: 20px;"/> <b
+                    class="text-link">&ensp;Hướng dẫn nộp tiền và giao dịch</b></a></td>
+            <td style="float: left;width: 25%;"><a href="https://trade-hn.vndirect.com.vn/" target="_blank"
+                                                   class="link">
+                <img src="cid:ProTrade.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
+                    class="text-link">&ensp;Bảng giá Lightning</b></a></td>
+            <td style="padding-right: 5%;float: right"><a href="https://stockbook.vn/" target="_blank" class="link"
+                                                          style="float:right;padding-right: 10px">
+                <img src="cid:Stockbook.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
+                    class="text-link">&ensp;Stockbook</b></a></td>
+        </tr>
+    </table>
 </div>
-<table style="background-color: gray;width: 100%;">
-    <tr>
-        <td style="float: left;width: 40%;padding-left: 5%"><a
-                href="https://www.vndirect.com.vn/cmsupload/HDGD-2017.21.11.pdf?" target="_blank"
-                class="link"><img src="cid:chalkboard-teacher-solid.jpg" class="image-link"
-                                  style="width: 20px;height: 20px;"/> <b
-                class="text-link">&ensp;Hướng dẫn nộp tiền và giao dịch</b></a></td>
-        <td style="float: left;width: 25%;"><a href="https://trade-hn.vndirect.com.vn/" target="_blank" class="link">
-            <img src="cid:ProTrade.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
-                class="text-link">&ensp;Bảng giá Lightning</b></a></td>
-        <td style="padding-right: 5%;float: right"><a href="https://stockbook.vn/" target="_blank" class="link"
-                                                      style="float:right;padding-right: 10px">
-            <img src="cid:Stockbook.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
-                class="text-link">&ensp;Stockbook</b></a></td>
-    </tr>
-</table>
 </body>
 </html>
