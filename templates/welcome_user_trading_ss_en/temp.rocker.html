@@ -39,56 +39,61 @@
     </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
-<body style="width: 70%;padding-left: 10%;padding-right: 10%">
-<div>
-    <a href="#"><img src="cid:Banner.jpg" style="width: 100%"/></a>
-</div>
-<div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
-margin-right:5%;margin-top: 2%">
-    <p>Welcome <b>@?full_name</b>,</p>
-    <p>Thank you for creating your trading account at <b style="color: orange">VNDIRECT</b>.
-        Your account information is as follows:</p>
-    @if (!username.isEmpty()) {
-    <div>Username: <b>@?username</b></div>
-    <div>Password: <b>@?password</b></div>
-    }
-    <div>Account No: <b>@contract_number</b></div>
-    <div>Custody Id: <b>@custody_number</b></div>
-    <p>For the purpose of protecting online transactions, please register your account with OTP code on VNDIRECT Mobile App
-        or send SMS as instructed.</p>
-    <a id="aotp" style="margin-left: 28%"
-       href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
-       target="_blank"><b>The level 2 of authentication</b></a>
-
-    <p style="text-align: left;margin-top: 2%">
-        If you need assistance, please contact the operator <b style="display: inline-block;color: orange">1900 54 54
-        09</b>
-        or email to <a target="_blank" style="color: orange;"
-                                      href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
-    </p>
+<body style="background-color: #dddddd">
+<div style="width: 70%;height: 90%;margin: auto;background-color: white;">
     <div>
-        <p>Best regards,<br/>
-            VNDIRECT Securities Joint Stock Company<br/>
-            Head office: 1 Nguyen Thuong Hien, Hai Ba Trung, Hanoi<br/>
-            Phone: 0243.9724568 Fax: 0243.9724600</p>
+        <a href="#"><img src="cid:Banner.jpg" style="width: 100%"/></a>
     </div>
+    <div style="font-family: Arial; font-size: 14px; text-align: justify; line-height: 25px; max-width: 800px;margin-left: 5%;
+margin-right:5%;margin-top: 2%">
+        <p>Welcome <b>@?full_name</b>,</p>
+        <p>Thank you for creating your trading account at <b style="color: orange">VNDIRECT</b>.
+            Your account information is as follows:</p>
+        @if (!username.isEmpty()) {
+        <div>Username: <b>@?username</b></div>
+        <div>Password: <b>@?password</b></div>
+        }
+        <div>Account No: <b>@contract_number</b></div>
+        <div>Custody Id: <b>@custody_number</b></div>
+        <p>For the purpose of protecting online transactions, please register your account with OTP code on VNDIRECT
+            Mobile App
+            or send SMS as instructed.</p>
+        <a id="aotp" style="margin-left: 28%"
+           href="https://www.vndirect.com.vn/trade/giao-dich-co-phieu/dang-ky-su-dung-sms-app.shtml?utm_source=open-account&utm_medium=email&utm_content=@username"
+           target="_blank"><b>The level 2 of authentication</b></a>
 
+        <p style="text-align: left;margin-top: 2%">
+            If you need assistance, please contact the operator <b style="display: inline-block;color: orange">1900 54
+            54
+            09</b>
+            or email to <a target="_blank" style="color: orange;"
+                           href="mailto:support@@vndirect.com.vn">support@@vndirect.com.vn</a>
+        </p>
+        <div>
+            <p>Best regards,<br/>
+                VNDIRECT Securities Joint Stock Company<br/>
+                Head office: 1 Nguyen Thuong Hien, Hai Ba Trung, Hanoi<br/>
+                Phone: 0243.9724568 Fax: 0243.9724600</p>
+        </div>
+
+    </div>
+    <table style="background-color: gray;width: 100%;">
+        <tr>
+            <td style="float: left;width: 40%;padding-left: 5%"><a
+                    href="https://www.vndirect.com.vn/cmsupload/HDGD-2017.21.11.pdf?" target="_blank"
+                    class="link"><img src="cid:chalkboard-teacher-solid.jpg" class="image-link"
+                                      style="width: 20px;height: 20px;"/> <b
+                    class="text-link">&ensp;Transaction and payment guide</b></a></td>
+            <td style="float: left;width: 25%;"><a href="https://trade-hn.vndirect.com.vn/" target="_blank"
+                                                   class="link">
+                <img src="cid:ProTrade.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
+                    class="text-link">&ensp;Lightning Watchlist</b></a></td>
+            <td style="padding-right: 5%;float: right"><a href="https://stockbook.vn/" target="_blank" class="link"
+                                                          style="float:right;padding-right: 10px">
+                <img src="cid:Stockbook.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
+                    class="text-link">&ensp;Stockbook</b></a></td>
+        </tr>
+    </table>
 </div>
-<table style="background-color: gray;width: 100%;">
-    <tr>
-        <td style="float: left;width: 40%;padding-left: 5%"><a
-                href="https://www.vndirect.com.vn/cmsupload/HDGD-2017.21.11.pdf?" target="_blank"
-                class="link"><img src="cid:chalkboard-teacher-solid.jpg" class="image-link"
-                                  style="width: 20px;height: 20px;"/> <b
-                class="text-link">&ensp;Transaction and payment guide</b></a></td>
-        <td style="float: left;width: 25%;"><a href="https://trade-hn.vndirect.com.vn/" target="_blank" class="link">
-            <img src="cid:ProTrade.jpg" class="image-link"  style="width: 20px;height: 20px"/> <b
-                class="text-link">&ensp;Lightning Watchlist</b></a></td>
-        <td style="padding-right: 5%;float: right"><a href="https://stockbook.vn/" target="_blank" class="link"
-                                                      style="float:right;padding-right: 10px">
-            <img src="cid:Stockbook.jpg" class="image-link" style="width: 20px;height: 20px"/> <b
-                class="text-link">&ensp;Stockbook</b></a></td>
-    </tr>
-</table>
 </body>
 </html>
